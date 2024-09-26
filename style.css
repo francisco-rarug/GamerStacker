@@ -1,0 +1,456 @@
+*{
+    list-style: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #1b2838;
+}
+
+.nav-bar {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0) !important; 
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    position: absolute;
+    width: 100%;
+}
+
+.nav-bar .botonera {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-bar .botonera a {
+    background-color: rgba(255, 255, 255, 0) !important; 
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+
+}
+
+.nav-bar .botonera a:hover {
+    color: #e40c0c;
+}
+
+.logo {
+    width: 4rem;
+    color: #ddd;
+}
+
+.imagen-tarjeta{
+    background: linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.1) ) ,  
+    url('Recursos/Fondo.jpg') no-repeat center center/cover;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imagen-tarjeta h1{
+    color: #fff;
+    font-size: 3.5rem;
+    text-shadow: 2px 2px 2px rgb(177, 172, 172);
+}
+
+.imagen-tarjeta h6{
+    font-size: 22px;
+    font-weight: 900;
+    font-family: "Montserrat", Sans-serif;
+    color: #fff;
+}
+
+.imagen-tarjeta p {
+    font-size: 25px;
+    font-weight: 900;
+    font-family: "Montserrat", Sans-serif;
+    color: #fff;
+    text-shadow: 2px 2px 2px #66c0f4;
+}
+
+.icono{
+    height: 30px;
+}
+
+.barra-divisora {
+    height: 4rem;
+    background-color: #66c0f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-titulo{
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+}
+
+.opciones{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.opciones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.opcion-imagen {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.opcion-imagen img {
+    width: 50%;
+    height: auto; 
+    object-fit: cover;
+    filter: blur(5px);
+    transition: transform 0.3s ease, filter 0.3s ease; 
+}
+
+.opcion-imagen h3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+    z-index: 1;
+}
+
+.opcion-imagen:hover img {
+    filter: blur(8px); 
+    transform: scale(1.1); 
+}
+
+.productos {
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.productos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    max-width: 1000px; 
+    margin: 0 auto; 
+}
+
+.tarjeta-productos {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-productos img {
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.mas-informacion{
+    font-size: 24px;
+    font-weight: 400;
+    margin: 20px auto;
+    color: #ffffff;
+    background-color: #000000;
+    font-family: "Montserrat", Sans-serif;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.mas-informacion:hover{
+    background: #acd550;
+    color: #000000;
+    font-weight: bold;
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.carrito{
+    color: #f0ebeb;
+    background-color: #000000;
+    font-family: "Montserrat", Sans-serif;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carrito:hover {
+    background: #acd550;
+    color: #000000;
+    font-weight: bold;
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pagos{
+    margin: auto;
+    height: 300px;
+}
+
+.tarjetas{
+    margin: auto;
+    height: 300px;
+    padding: 50px;
+}
+
+.pie-pagina {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.grupo-1 {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto;
+    gap: 50px;
+    padding: 45px 0px;
+    justify-content: center;
+}
+
+.box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.box figure {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box figure img {
+    width: 250px;
+}
+
+.box h2 {
+    color: #463b01;
+    margin-bottom: 25px;
+    font-size: 20px;
+}
+
+.box p {
+    color: #0f0101;
+    margin-bottom: 10px;
+}
+
+.redes-sociales {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.redes-sociales a {
+    display: inline-block;
+    text-decoration: none;
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    transition: all 300ms ease;
+}
+
+.grupo-2 {
+    padding: 15px 10px;
+    text-align: center;
+    color: #0f0101;
+}
+
+.grupo-2 small {
+    font-size: 15px;
+}
+
+.mapa {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media screen and (max-width:800px) {
+    .pie-pagina .grupo-1 {
+        width: 100%;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 30px;
+        padding: 35px 0px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .sub-titulo{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .nav-bar{
+        flex-direction: column;
+        position: relative;
+        background-color: #000000 !important;
+    }
+
+    .nav-bar .botonera{
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 650px) {
+
+    body{
+        font-size: 14px;
+    }
+
+    .imagen-tarjeta{
+        height: 70vh;
+        padding: 20px;
+        text-align: center;
+        
+    }
+
+    .imagen-tarjeta p{
+        font-size: 1rem;
+        margin-top: 0;
+    }
+
+    .conocenos{
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+
+    .titulo-rojo,
+    .titulo-verde{
+        font-size: 1.5rem;
+        padding: 10px;
+    }
+
+    .opciones{
+        padding: 10px;
+    }
+
+    .opciones-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .opcion-imagen{
+        padding: 10px;
+    }
+
+    .opcion-imagen img{
+        max-width: 70px;
+    }
+
+    .opcion-imagen h3{
+        font-size: 1rem;
+    }
+
+    .productos{
+        padding: 20px;
+    }
+
+    .productos-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-productos{
+        margin:5px;
+        padding: 10px;
+    }
+
+    .tarjeta-productos img{
+        height: 100px;
+    }
+
+    .mas-informacion{
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+
+    .carrito{
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+    .hero-text h1 {
+        font-size: 36px;
+    }
+    
+    .hero-text p {
+        font-size: 18px;
+    }
+
+    .product {
+        width: 100%;
+    }
+
+    .navbar {
+        flex-direction: column;
+    }
+
+    .navbar-logo img {
+        height: 80px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .pie-pagina .grupo-1 {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+
+        padding: 20px 10px;
+    }
+
+    .box figure img {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .pie-pagina .grupo-1 {
+        grid-template-columns: 1fr ;
+    }
+
+}
