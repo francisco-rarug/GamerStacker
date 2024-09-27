@@ -48,7 +48,7 @@ body {
 
 .imagen-tarjeta{
     background: linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.1) ) ,  
-    url('Recursos/Fondo.jpg') no-repeat center center/cover;
+    url('Recursos/4k-ultra-hd-gaming-call-of-duty.jpg') no-repeat center center/cover;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -97,131 +97,96 @@ body {
     padding: 20px;
 }
 
-.opciones{
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
-.opciones-grid {
+.productos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+    padding: 40px 20px;
 }
 
-.opcion-imagen {
+.card {
+    width: 90%; 
+    aspect-ratio: 1 / 0.7;
+    border-radius: 8px;
     position: relative;
     overflow: hidden;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    cursor: pointer;
+}
+.card .image-box {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
 }
 
-.opcion-imagen img {
-    width: 50%;
-    height: auto; 
+.card .image-box img {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    filter: blur(5px);
-    transition: transform 0.3s ease, filter 0.3s ease; 
+    object-position: 50% 90%;
+    border-radius: inherit;
+    transition: 0.5s ease-in-out;
 }
 
-.opcion-imagen h3 {
+.card:hover{
+    cursor: url("Recursos/joystick.png"), auto;
+}
+
+.card:hover img {
+    filter: grayscale(1) brightness(0.4);
+}
+
+.content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    text-align: center;
     color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
     z-index: 1;
 }
 
-.opcion-imagen:hover img {
-    filter: blur(8px); 
-    transform: scale(1.1); 
+.card:hover .content {
+    opacity: 1;
 }
 
-.productos {
-    padding: 50px 20px;
-    text-align: center;
+.content h2, .content p, .add-cart-btn {
+    margin: 10px 0;
 }
 
-.productos-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    max-width: 1000px; 
-    margin: 0 auto; 
-}
-
-.tarjeta-productos {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin: 10px;
-    padding: 20px;
-    text-align: center;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.tarjeta-productos img {
-    border-bottom: 1px solid #ddd;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    object-fit: cover;
-}
-
-.mas-informacion{
-    font-size: 24px;
-    font-weight: 400;
-    margin: 20px auto;
-    color: #ffffff;
-    background-color: #000000;
-    font-family: "Montserrat", Sans-serif;
-    padding: 5px 10px;
+.add-cart-btn {
+    background-color: #66c0f4;
     border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-}
-
-.mas-informacion:hover{
-    background: #acd550;
-    color: #000000;
-    font-weight: bold;
-    transform: scale(1.05);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-}
-
-.carrito{
-    color: #f0ebeb;
-    background-color: #000000;
-    font-family: "Montserrat", Sans-serif;
     padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 1rem;
+    color: white;
+    border-radius: 5px;
+    cursor: url("Recursos/joystick.png"), auto;
+
 }
 
-.carrito:hover {
-    background: #acd550;
-    color: #000000;
-    font-weight: bold;
-    transform: scale(1.05);
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+.add-cart-btn:hover {
+    background-color: #acd550;
+    cursor: url("Recursos/joystick.png"), auto;
 }
 
-.pagos{
-    margin: auto;
-    height: 300px;
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid white;
+    border-radius: inherit;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
 }
 
-.tarjetas{
-    margin: auto;
-    height: 300px;
-    padding: 50px;
+.card:hover::after {
+    opacity: 1;
+    inset: 20px;
 }
+
+
 
 .pie-pagina {
     width: 100%;
@@ -336,7 +301,6 @@ body {
 }
 
 @media screen and (max-width: 650px) {
-
     body{
         font-size: 14px;
     }
@@ -352,59 +316,6 @@ body {
         font-size: 1rem;
         margin-top: 0;
     }
-
-    .conocenos{
-        font-size: 1.2rem;
-        padding: 10px;
-    }
-
-    .opciones{
-        padding: 10px;
-    }
-
-    .opciones-grid{
-        grid-template-columns: 1fr;
-    }
-
-    .opcion-imagen{
-        padding: 10px;
-    }
-
-    .opcion-imagen img{
-        max-width: 70px;
-    }
-
-    .opcion-imagen h3{
-        font-size: 1rem;
-    }
-
-    .productos{
-        padding: 20px;
-    }
-
-    .productos-grid{
-        grid-template-columns: 1fr;
-    }
-
-    .tarjeta-productos{
-        margin:5px;
-        padding: 10px;
-    }
-
-    .tarjeta-productos img{
-        height: 100px;
-    }
-
-    .mas-informacion{
-        font-size: 1.2rem;
-        padding: 10px;
-    }
-
-    .carrito{
-        font-size: 1rem;
-        padding: 10px;
-    }
-
 }
 
 @media screen and (max-width: 1000px) {
@@ -425,4 +336,23 @@ body {
         grid-template-columns: 1fr ;
     }
 
+}
+
+@media screen and (max-width: 1000px) {
+    .productos {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px; 
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .productos {
+        grid-template-columns: 1fr; 
+        padding: 10px; 
+    }
+
+    .card {
+        width: 100%; 
+        aspect-ratio: auto; 
+    }
 }
