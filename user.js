@@ -27,5 +27,5 @@ function login() {
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    window.location.href = "ingresar.html";
+    window.location.href = "principal.html";
 }
