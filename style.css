@@ -38,7 +38,7 @@ body {
 }
 
 .nav-bar .botonera a:hover {
-    color: #e40c0c;
+    color: #acd550;
 }
 
 .logo {
@@ -101,6 +101,7 @@ body {
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 .opciones-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -371,7 +372,7 @@ body {
     }
 
     .opcion-imagen img{
-        max-width: 70px;
+        max-width: 50%;
     }
 
     .opcion-imagen h3{
