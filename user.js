@@ -4,7 +4,11 @@ const nombreElemento = document.getElementById("nombre");
 const apellidoElemento = document.getElementById("apellido");
 
 const loginBtn = document.getElementById("login");
-if (loginBtn) loginBtn.onclick = login;
+if (loginBtn) {
+    loginBtn.onclick = login;
+} else {
+    actualizarTexto();
+}
 
 
 let nombre = "";
@@ -28,4 +32,13 @@ function login() {
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
     window.location.href = "principal.html";
+}
+function actualizarTexto() {
+    const datos = document.getElementById("datos");
+    let usuarios = JSON.parse(localStorage.getItem("usuarios")) || [];
+    let usuario = "";
+    usuarios.forEach(element => {
+        usuario += element.nombre + " " + element.apellido
+    });
+    datos.innerText = usuario;
 }
