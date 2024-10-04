@@ -191,6 +191,7 @@ body {
 
 .grupo-2 small {
     font-size: 15px;
+    color: #66c0f4;
 }
 
 .mapa {
@@ -211,5 +212,24 @@ body {
 
     .nav-bar .botonera{
         flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .pie-pagina .grupo-1 {
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+
+        padding: 20px 10px;
+    }
+
+    .box figure img {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .pie-pagina .grupo-1 {
+        grid-template-columns: 1fr ;
     }
 }
