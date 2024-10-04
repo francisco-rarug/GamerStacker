@@ -150,12 +150,7 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-<<<<<<< HEAD
-    max-width: 1000px;
-    margin: 0 auto;
-=======
     padding: 40px 20px;
->>>>>>> desa-front
 }
 
 .card {
@@ -181,8 +176,6 @@ body {
     transition: 0.5s ease-in-out;
 }
 
-<<<<<<< HEAD
-=======
 .card:hover{
     cursor: url("Recursos/joystick.png"), auto;
 }
@@ -248,7 +241,6 @@ body {
     width: 100%;
 }
 
->>>>>>> desa-front
 .mas-informacion {
     font-size: 24px;
     font-weight: 400;
@@ -270,9 +262,6 @@ body {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
-<<<<<<< HEAD
-.carrito {
-=======
 .modal {
     display: none;
     position: fixed;
@@ -316,7 +305,6 @@ body {
 
 
 .carrito{
->>>>>>> desa-front
     color: #f0ebeb;
     background-color: #000000;
     font-family: "Montserrat", Sans-serif;
@@ -550,10 +538,6 @@ body {
     .pie-pagina .grupo-1 {
         grid-template-columns: 1fr;
     }
-<<<<<<< HEAD
-
-}
-=======
 }
 
 @media screen and (max-width: 1000px) {
@@ -574,4 +558,3 @@ body {
         aspect-ratio: auto; 
     }
 }
->>>>>>> desa-front
