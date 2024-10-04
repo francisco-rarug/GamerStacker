@@ -48,7 +48,7 @@ body {
 
 .imagen-tarjeta{
     background: linear-gradient(rgba(0, 0, 0, 1),rgba(0, 0, 0, 0.1) ) ,  
-    url('Recursos/4k-ultra-hd-gaming-call-of-duty.jpg') no-repeat center center/cover;
+    url('/Recursos/Fondo.jpg') no-repeat center center/cover;
     height: 100vh;
     display: flex;
     justify-content: center;
@@ -95,6 +95,51 @@ body {
     font-weight: 700;
     text-align: center;
     padding: 20px;
+}
+
+.opciones{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.opciones-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.opcion-imagen {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.opcion-imagen img {
+    width: 50%;
+    height: auto; 
+    object-fit: cover;
+    filter: blur(5px);
+    transition: transform 0.3s ease, filter 0.3s ease; 
+}
+
+.opcion-imagen h3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3); 
+    z-index: 1;
+}
+
+.opcion-imagen:hover img {
+    filter: blur(8px); 
+    transform: scale(1.1); 
 }
 
 .productos {
@@ -155,10 +200,6 @@ body {
     margin: 10px 0;
 }
 
-p{
-    font-size: 12px;
-}
-
 .add-cart-btn {
     background-color: #66c0f4;
     border: none;
@@ -188,6 +229,33 @@ p{
 .card:hover::after {
     opacity: 1;
     inset: 20px;
+}
+
+.mas-productos-container {
+    text-align: center;
+    margin: 20px auto;
+    width: 100%;
+}
+
+.mas-informacion {
+    font-size: 24px;
+    font-weight: 400;
+    color: #ffffff;
+    background-color: #000000;
+    font-family: "Montserrat", Sans-serif;
+    border: none;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.mas-informacion:hover {
+    background: #acd550;
+    color: #000000;
+    font-weight: bold;
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
 .modal {
@@ -229,6 +297,37 @@ p{
     right: 10px;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+
+.carrito{
+    color: #f0ebeb;
+    background-color: #000000;
+    font-family: "Montserrat", Sans-serif;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carrito:hover {
+    background: #acd550;
+    color: #000000;
+    font-weight: bold;
+    transform: scale(1.05);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.pagos{
+    margin: auto;
+    height: 300px;
+}
+
+.tarjetas{
+    margin: auto;
+    height: 300px;
+    padding: 50px;
 }
 
 .pie-pagina {
@@ -347,6 +446,7 @@ p{
 }
 
 @media screen and (max-width: 650px) {
+
     body{
         font-size: 14px;
     }
@@ -362,6 +462,59 @@ p{
         font-size: 1rem;
         margin-top: 0;
     }
+
+    .conocenos{
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+
+    .opciones{
+        padding: 10px;
+    }
+
+    .opciones-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .opcion-imagen{
+        padding: 10px;
+    }
+
+    .opcion-imagen img{
+        max-width: 50%;
+    }
+
+    .opcion-imagen h3{
+        font-size: 1rem;
+    }
+
+    .productos{
+        padding: 20px;
+    }
+
+    .productos-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-productos{
+        margin:5px;
+        padding: 10px;
+    }
+
+    .tarjeta-productos img{
+        height: 100px;
+    }
+
+    .mas-informacion{
+        font-size: 1.2rem;
+        padding: 10px;
+    }
+
+    .carrito{
+        font-size: 1rem;
+        padding: 10px;
+    }
+
 }
 
 @media screen and (max-width: 1000px) {
@@ -381,7 +534,6 @@ p{
     .pie-pagina .grupo-1 {
         grid-template-columns: 1fr ;
     }
-
 }
 
 @media screen and (max-width: 1000px) {
