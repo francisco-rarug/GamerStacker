@@ -74,7 +74,7 @@ body {
 }
 
 .lista-productos {
-    flex: 1; 
+    flex: 1;
 }
 
 .lista-productos h2 {
@@ -91,10 +91,12 @@ body {
 
 .lista-productos li {
     background-color: #ffffff;
-    margin: 5px 0; 
     padding: 8px; 
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 60%;
+    margin: 5px auto;
 }
 
 .btn-finalizar {
