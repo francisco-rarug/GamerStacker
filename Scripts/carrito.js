@@ -11,7 +11,10 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
 
         localStorage.setItem('carrito', JSON.stringify(productosCarrito));
 
-        alert(`${nombreProducto} fue agregado al carrito`);
+        const modal = document.getElementById("modal");
+        modal.style.display = "flex";
+        
+        modalInteracciones();
     });
 });
 
@@ -34,3 +37,29 @@ function cargarCarrito() {
 }
 
 document.addEventListener('DOMContentLoaded', cargarCarrito);
+
+
+function modalInteracciones() {
+    const modal = document.getElementById("modal");
+    const botonFinalizarCompra = document.getElementById("finalizar-compra");
+    const botonSeguirComprando = document.getElementById("seguir-comprando");
+    const close = document.querySelector(".close");
+
+    close.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    botonFinalizarCompra.addEventListener("click", () => {
+        window.location.href = "/Secciones/carrito.html";
+    });
+
+    botonSeguirComprando.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+}
