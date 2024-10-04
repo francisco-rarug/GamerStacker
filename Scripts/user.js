@@ -1,4 +1,4 @@
-import Usuario from "./usuario";
+import Usuario from "./usuario.js";
 
 const nombreElemento = document.getElementById("nombre");
 const apellidoElemento = document.getElementById("apellido");
@@ -31,7 +31,7 @@ function login() {
 
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
 
-    window.location.href = "/Secciones/principal.html";
+    window.location.href = "../Secciones/principal.html";
 }
 function actualizarTexto() {
     const datos = document.getElementById("datos");
