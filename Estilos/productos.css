@@ -133,7 +133,7 @@ body {
 }
 
 .card:hover {
-    cursor: url("Recursos/joystick.png"), auto;
+    cursor: url("/Recursos/joystick.png"), auto;
 }
 
 .card:hover img {
@@ -173,13 +173,13 @@ p{
     font-size: 1rem;
     color: white;
     border-radius: 5px;
-    cursor: url("Recursos/joystick.png"), auto;
+    cursor: url("/Recursos/joystick.png"), auto;
 
 }
 
 .btn-agregar-carrito:hover {
     background-color: #acd550;
-    cursor: url("Recursos/joystick.png"), auto;
+    cursor: url("/Recursos/joystick.png"), auto;
 }
 
 .card::after {

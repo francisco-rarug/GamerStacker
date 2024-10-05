@@ -3,8 +3,10 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
         const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText;
         const precioProducto = document.querySelectorAll('.data-precio')[index].innerText;
         const imgProducto = document.querySelectorAll('.image-box img')[index].src;
-
-        const producto = { nombre: nombreProducto, precio: precioProducto, img: imgProducto };
+        const boton = document.querySelectorAll('.btn-agregar-carrito')[index]
+        
+        boton.style.display = "none"
+        const producto = { nombre: nombreProducto, precio: precioProducto, img: imgProducto};
 
         let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -14,6 +16,7 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
 
         const modal = document.getElementById("modal");
         modal.style.display = "flex";
+        
 
         modalInteracciones();
     });
@@ -70,7 +73,7 @@ function modalInteracciones() {
 const borrarBtn = document.getElementById("borrar");
 if (borrarBtn) {
     borrarBtn.onclick = borrar;
-
+    boton.style.display = "flex"
 }
 function borrar() {
     localStorage.removeItem('carrito');
