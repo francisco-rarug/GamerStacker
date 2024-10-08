@@ -205,7 +205,6 @@ p{
     align-items: center;
 }
 
-
 .modal {
     display: none;
     position: fixed;
@@ -245,6 +244,11 @@ p{
     right: 10px;
     font-size: 1.5rem;
     cursor: pointer;
+}
+
+.no-scroll {
+    overflow: hidden;
+    height: 100vh; 
 }
 
 .pie-pagina {
