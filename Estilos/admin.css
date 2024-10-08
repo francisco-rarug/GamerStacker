@@ -1,0 +1,204 @@
+* {
+    list-style: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    box-sizing: border-box;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #1b2838;
+}
+
+.datos {
+    color: #ddd;
+}
+
+.nav-bar {
+    display: flex;
+    background-color: black !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    width: 100%;
+}
+
+.nav-bar .botonera {
+    display: inherit;
+    justify-content: center;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.nav-bar .botonera a {
+    background-color: rgba(255, 255, 255, 0) !important;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+}
+
+.nav-bar .botonera a:hover {
+    color: #acd550;
+}
+
+.logo {
+    width: 4rem;
+}
+
+.barra-divisora {
+    height: 4rem;
+    background-color: #66c0f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sub-titulo {
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    text-align: center;
+    padding: 20px;
+}
+
+.productos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    padding: 40px 20px;
+}
+
+.card {
+    width: 90%;
+    aspect-ratio: 1 / 0.7;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.card .image-box {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+}
+
+.card .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 90%;
+    border-radius: inherit;
+    transition: 0.5s ease-in-out;
+}
+
+.card:hover {
+    cursor: url("/Recursos/joystick.png"), auto;
+}
+
+.card:hover img {
+    filter: grayscale(1) brightness(0.4);
+}
+
+.content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.card:hover .content {
+    opacity: 1;
+}
+
+.content h2,
+.content p,
+.btn-agregar-carrito {
+    margin: 10px 0;
+}
+
+p{
+    font-size: 12px;
+}
+
+.btn-agregar-carrito {
+    background-color: #66c0f4;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    border-radius: 5px;
+    cursor: url("/Recursos/joystick.png"), auto;
+
+}
+
+.btn-agregar-carrito:hover {
+    background-color: #acd550;
+    cursor: url("/Recursos/joystick.png"), auto;
+}
+
+.card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border: 2px solid white;
+    border-radius: inherit;
+    opacity: 0;
+    transition: 0.4s ease-in-out;
+}
+
+.card:hover::after {
+    opacity: 1;
+    inset: 20px;
+}
+
+
+@media screen and (max-width: 550px) {
+    .sub-titulo {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .nav-bar {
+        flex-direction: column;
+        position: relative;
+        background-color: #000000 !important;
+    }
+
+    .nav-bar .botonera {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    body {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .productos {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .productos {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .card {
+        width: 100%;
+        aspect-ratio: auto;
+    }
+}

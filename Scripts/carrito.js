@@ -2,9 +2,7 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     boton.addEventListener('click', () => {
         const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText;
         const precioProducto = document.querySelectorAll('.data-precio')[index].innerText;
-        const imgProducto = document.querySelectorAll('.image-box img')[index].src
-        const boton = document.querySelectorAll('.btn-agregar-carrito')[index]
-        
+        const imgProducto = document.querySelectorAll('.image-box img')[index].src  
         const producto = { nombre: nombreProducto, precio: precioProducto, img: imgProducto}
         
         let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
@@ -21,24 +19,24 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     })
 })
 
+
 function cargarCarrito() {
-    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-    const listaProductos = document.getElementById('productos-lista')
+    const listaProductos = document.getElementById('productos-lista');
 
-    listaProductos.innerHTML = ''
+    listaProductos.innerHTML = '';
 
     if (productosCarrito.length === 0) {
-        listaProductos.innerHTML = '<li>El carrito está vacio</li>'
+        listaProductos.innerHTML = '<li>El carrito está vacío</li>';
     } else {
         productosCarrito.forEach(producto => {
-            const li = document.createElement('li')
+            const li = document.createElement('li');
             li.innerHTML = `
                 <img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> 
-                - <strong>${producto.nombre}</strong> - ${producto.precio}`
-            listaProductos.appendChild(li)
-        })
-
+                <strong>${producto.nombre}</strong> - ${producto.precio}`;
+            listaProductos.appendChild(li);
+        });
     }
 }
 
@@ -78,4 +76,3 @@ function borrar() {
     localStorage.removeItem('carrito')
     cargarCarrito()
 }
-
