@@ -1,55 +1,59 @@
 document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     boton.addEventListener('click', () => {
-        const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText
-        const precioProducto = document.querySelectorAll('.data-precio')[index].innerText
-        const imgProducto = document.querySelectorAll('.image-box img')[index].src  
-        const producto = { nombre: nombreProducto, precio: precioProducto, img: imgProducto}
+        const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText;
+        const precioProducto = document.querySelectorAll('.data-precio')[index].innerText;
+        const imgProducto = document.querySelectorAll('.image-box img')[index].src;  
+        const precio = parseFloat(precioProducto.replace('$', ''));
         
-        let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
-        
-        productosCarrito.push(producto)
+        let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-        localStorage.setItem('carrito', JSON.stringify(productosCarrito))
+        const productoExistente = productosCarrito.find(producto => producto.nombre === nombreProducto);
+        if (productoExistente) {
+            productoExistente.cantidad += 1;
+            productoExistente.precio += precio;
+        } else {
+            productosCarrito.push({ nombre: nombreProducto, precio, img: imgProducto, cantidad: 1 });
+        }
 
-        const modal = document.getElementById("modal")
-        modal.style.display = "flex"
-        
+        localStorage.setItem('carrito', JSON.stringify(productosCarrito));
 
-        modalInteracciones()
-    })
-})
+        const modal = document.getElementById("modal");
+        modal.style.display = "flex";
+
+        modalInteracciones();
+    });
+});
 
 function cargarCarrito() {
-    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const listaProductos = document.getElementById('productos-lista');
+    listaProductos.innerHTML = '';
 
-    const listaProductos = document.getElementById('productos-lista')
-
-    listaProductos.innerHTML = ''
-
-    let total = 0
+    let total = 0;
 
     if (productosCarrito.length === 0) {
-        listaProductos.innerHTML = '<li>El carrito está vacío</li>'
+        listaProductos.innerHTML = '<li>El carrito está vacío</li>';
     } else {
         productosCarrito.forEach(producto => {
-            const li = document.createElement('li')
-            const precio = parseFloat(producto.precio.replace('$', ''))
-            total += precio
-    
-            li.innerHTML = `<img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> <strong>${producto.nombre}</strong> - $${precio.toFixed(3)}`
-            listaProductos.appendChild(li)
-        })
-    
-        const lineaHorizontal = document.createElement('hr')
-        const totalElement = document.createElement('p')
-        totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`
-    
-        listaProductos.appendChild(lineaHorizontal)
-        listaProductos.appendChild(totalElement)
+            const li = document.createElement('li');
+            total += producto.precio; 
+
+            li.innerHTML = `
+                <img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> 
+                <strong>${producto.nombre}</strong> - $${producto.precio.toFixed(3)} (x${producto.cantidad})`;
+            listaProductos.appendChild(li);
+        });
+
+        const lineaHorizontal = document.createElement('hr');
+        const totalElement = document.createElement('p');
+        totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`;
+
+        listaProductos.appendChild(lineaHorizontal);
+        listaProductos.appendChild(totalElement);
     }
 }
 
-cargarCarrito()
+cargarCarrito();
 
 function modalInteracciones() {
     const modal = document.getElementById("modal")
@@ -78,27 +82,25 @@ function modalInteracciones() {
 
 // Parte para formulario modal de ticket
 function cargarProductosFinalizar() {
-    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
-    const listaProductosFinalizar = document.getElementById('lista-productos-finalizar')
-    listaProductosFinalizar.innerHTML = ''
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const listaProductosFinalizar = document.getElementById('lista-productos-finalizar');
+    listaProductosFinalizar.innerHTML = '';
 
-    let total = 0
+    let total = 0;
 
     productosCarrito.forEach(producto => {
-        const li = document.createElement('li')
-        const precio = parseFloat(producto.precio.replace('$', ''))
-        total += precio
+        const li = document.createElement('li');
+        total += producto.precio; 
+        li.innerHTML = `<strong>${producto.nombre}</strong> - $${producto.precio.toFixed(3)} (x${producto.cantidad})`;
+        listaProductosFinalizar.appendChild(li);
+    });
 
-        li.innerHTML = `<strong>${producto.nombre}</strong> - $${precio.toFixed(3)}`
-        listaProductosFinalizar.appendChild(li)
-    })
+    const lineaHorizontal = document.createElement('hr');
+    const totalElement = document.createElement('p');
+    totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`;
 
-    const lineaHorizontal = document.createElement('hr')
-    const totalElement = document.createElement('p')
-    totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`
-
-    listaProductosFinalizar.appendChild(lineaHorizontal)
-    listaProductosFinalizar.appendChild(totalElement)
+    listaProductosFinalizar.appendChild(lineaHorizontal);
+    listaProductosFinalizar.appendChild(totalElement);
 }
 
 
