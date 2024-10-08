@@ -26,21 +26,30 @@ function cargarCarrito() {
 
     listaProductos.innerHTML = ''
 
+    let total = 0
+
     if (productosCarrito.length === 0) {
         listaProductos.innerHTML = '<li>El carrito está vacío</li>'
     } else {
         productosCarrito.forEach(producto => {
             const li = document.createElement('li')
-            li.innerHTML = `
-                <img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> 
-                <strong>${producto.nombre}</strong> - ${producto.precio}`
+            const precio = parseFloat(producto.precio.replace('$', ''))
+            total += precio
+    
+            li.innerHTML = `<img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> <strong>${producto.nombre}</strong> - $${precio.toFixed(3)}`
             listaProductos.appendChild(li)
         })
+    
+        const lineaHorizontal = document.createElement('hr')
+        const totalElement = document.createElement('p')
+        totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`
+    
+        listaProductos.appendChild(lineaHorizontal)
+        listaProductos.appendChild(totalElement)
     }
 }
 
 cargarCarrito()
-
 
 function modalInteracciones() {
     const modal = document.getElementById("modal")
@@ -68,71 +77,88 @@ function modalInteracciones() {
 }
 
 // Parte para formulario modal de ticket
-
 function cargarProductosFinalizar() {
-    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-    const listaProductosFinalizar = document.getElementById('lista-productos-finalizar');
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+    const listaProductosFinalizar = document.getElementById('lista-productos-finalizar')
+    listaProductosFinalizar.innerHTML = ''
 
-    listaProductosFinalizar.innerHTML = '';
+    let total = 0
 
-    if (productosCarrito.length === 0) {
-        listaProductosFinalizar.innerHTML = '<li>No hay productos en el carrito.</li>';
-    } else {
-        productosCarrito.forEach(producto => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${producto.nombre}</strong> - ${producto.precio}`;
-            listaProductosFinalizar.appendChild(li);
-        });
-    }
+    productosCarrito.forEach(producto => {
+        const li = document.createElement('li')
+        const precio = parseFloat(producto.precio.replace('$', ''))
+        total += precio
+
+        li.innerHTML = `<strong>${producto.nombre}</strong> - $${precio.toFixed(3)}`
+        listaProductosFinalizar.appendChild(li)
+    })
+
+    const lineaHorizontal = document.createElement('hr')
+    const totalElement = document.createElement('p')
+    totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`
+
+    listaProductosFinalizar.appendChild(lineaHorizontal)
+    listaProductosFinalizar.appendChild(totalElement)
 }
 
-const finalizarBtn = document.getElementById("finalizar");
+
+const finalizarBtn = document.getElementById("finalizar")
 finalizarBtn.addEventListener("click", () => {
-    cargarProductosFinalizar();
-    const modalFinalizar = document.getElementById("modal-finalizar");
-    const modalContent = modalFinalizar.querySelector('.modal-content');
+    cargarProductosFinalizar()
+    const modalFinalizar = document.getElementById("modal-finalizar")
+    const modalContent = modalFinalizar.querySelector('.modal-content')
 
-    modalFinalizar.style.display = "block";
-    document.body.classList.add("no-scroll"); 
+    modalFinalizar.style.display = "block"
+    document.body.classList.add("no-scroll") 
 
     setTimeout(() => {
-        modalContent.classList.add("show");
-    }, 10);
-});
+        modalContent.classList.add("show")
+    }, 10)
+})
 
-const closeModal = document.getElementById("close-finalizar");
+const closeModal = document.getElementById("close-finalizar")
 closeModal.addEventListener("click", () => {
-    const modalFinalizar = document.getElementById("modal-finalizar");
-    const modalContent = modalFinalizar.querySelector('.modal-content');
+    const modalFinalizar = document.getElementById("modal-finalizar")
+    const modalContent = modalFinalizar.querySelector('.modal-content')
 
-    modalContent.classList.remove("show");
+    modalContent.classList.remove("show")
     setTimeout(() => {
-        modalFinalizar.style.display = "none";
-        document.body.classList.remove("no-scroll"); 
-    }, 300);
+        modalFinalizar.style.display = "none"
+        document.body.classList.remove("no-scroll") 
+    }, 300)
     borrar()
-});
+})
 
 window.addEventListener("click", (event) => {
-    const modalFinalizar = document.getElementById("modal-finalizar");
+    const modalFinalizar = document.getElementById("modal-finalizar")
     if (event.target === modalFinalizar) {
-        const modalContent = modalFinalizar.querySelector('.modal-content');
-        modalContent.classList.remove("show");
+        const modalContent = modalFinalizar.querySelector('.modal-content')
+        modalContent.classList.remove("show")
         setTimeout(() => {
-            modalFinalizar.style.display = "none";
-            document.body.classList.remove("no-scroll"); 
-        }, 300);
+            modalFinalizar.style.display = "none"
+            document.body.classList.remove("no-scroll") 
+        }, 300)
         
     }
-});
+})
 
 function borrar(){
-    localStorage.removeItem('carrito');
-    cargarCarrito();
+    localStorage.removeItem('carrito')
+    cargarCarrito()
+}
+
+function borrarUltimoProducto() {
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+
+    if (productosCarrito.length > 0) {
+        productosCarrito.pop()
+        localStorage.setItem('carrito', JSON.stringify(productosCarrito))
+    }
+
+    cargarCarrito()
 }
 
 const borrarBtn = document.getElementById("borrar");
 borrarBtn.addEventListener("click", () => {
-    borrar()
-});
-
+    borrarUltimoProducto()
+})
