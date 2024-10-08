@@ -1,7 +1,7 @@
 document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     boton.addEventListener('click', () => {
-        const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText;
-        const precioProducto = document.querySelectorAll('.data-precio')[index].innerText;
+        const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText
+        const precioProducto = document.querySelectorAll('.data-precio')[index].innerText
         const imgProducto = document.querySelectorAll('.image-box img')[index].src  
         const producto = { nombre: nombreProducto, precio: precioProducto, img: imgProducto}
         
@@ -19,24 +19,23 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     })
 })
 
-
 function cargarCarrito() {
-    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
 
-    const listaProductos = document.getElementById('productos-lista');
+    const listaProductos = document.getElementById('productos-lista')
 
-    listaProductos.innerHTML = '';
+    listaProductos.innerHTML = ''
 
     if (productosCarrito.length === 0) {
-        listaProductos.innerHTML = '<li>El carrito está vacío</li>';
+        listaProductos.innerHTML = '<li>El carrito está vacío</li>'
     } else {
         productosCarrito.forEach(producto => {
-            const li = document.createElement('li');
+            const li = document.createElement('li')
             li.innerHTML = `
                 <img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> 
-                <strong>${producto.nombre}</strong> - ${producto.precio}`;
-            listaProductos.appendChild(li);
-        });
+                <strong>${producto.nombre}</strong> - ${producto.precio}`
+            listaProductos.appendChild(li)
+        })
     }
 }
 
@@ -67,12 +66,73 @@ function modalInteracciones() {
         }
     })
 }
-const borrarBtn = document.getElementById("borrar")
-if (borrarBtn) {
-    borrarBtn.onclick = borrar
-    boton.style.display = "flex"
+
+// Parte para formulario modal de ticket
+
+function cargarProductosFinalizar() {
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const listaProductosFinalizar = document.getElementById('lista-productos-finalizar');
+
+    listaProductosFinalizar.innerHTML = '';
+
+    if (productosCarrito.length === 0) {
+        listaProductosFinalizar.innerHTML = '<li>No hay productos en el carrito.</li>';
+    } else {
+        productosCarrito.forEach(producto => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${producto.nombre}</strong> - ${producto.precio}`;
+            listaProductosFinalizar.appendChild(li);
+        });
+    }
 }
-function borrar() {
-    localStorage.removeItem('carrito')
-    cargarCarrito()
+
+const finalizarBtn = document.getElementById("finalizar");
+finalizarBtn.addEventListener("click", () => {
+    cargarProductosFinalizar();
+    const modalFinalizar = document.getElementById("modal-finalizar");
+    const modalContent = modalFinalizar.querySelector('.modal-content');
+
+    modalFinalizar.style.display = "block";
+    document.body.classList.add("no-scroll"); 
+
+    setTimeout(() => {
+        modalContent.classList.add("show");
+    }, 10);
+});
+
+const closeModal = document.getElementById("close-finalizar");
+closeModal.addEventListener("click", () => {
+    const modalFinalizar = document.getElementById("modal-finalizar");
+    const modalContent = modalFinalizar.querySelector('.modal-content');
+
+    modalContent.classList.remove("show");
+    setTimeout(() => {
+        modalFinalizar.style.display = "none";
+        document.body.classList.remove("no-scroll"); 
+    }, 300);
+    borrar()
+});
+
+window.addEventListener("click", (event) => {
+    const modalFinalizar = document.getElementById("modal-finalizar");
+    if (event.target === modalFinalizar) {
+        const modalContent = modalFinalizar.querySelector('.modal-content');
+        modalContent.classList.remove("show");
+        setTimeout(() => {
+            modalFinalizar.style.display = "none";
+            document.body.classList.remove("no-scroll"); 
+        }, 300);
+        
+    }
+});
+
+function borrar(){
+    localStorage.removeItem('carrito');
+    cargarCarrito();
 }
+
+const borrarBtn = document.getElementById("borrar");
+borrarBtn.addEventListener("click", () => {
+    borrar()
+});
+

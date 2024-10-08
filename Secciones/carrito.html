@@ -40,13 +40,24 @@
             <div class="lista-productos">
                 <h2>Productos en el Carrito</h2>
                 <ul id="productos-lista">
-
                 </ul>
-                <button class="btn-finalizar">Finalizar Compra</button>
+                <button class="btn-finalizar" id="finalizar">Finalizar Compra</button>
                 <button class="btn-finalizar" id="borrar">Borrar compra</button>
             </div>
         </div>
+        
+        <div id="modal-finalizar" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" id="close-finalizar">&times;</span>
+                <h2>Resumen de tu compra</h2>
+                <ul id="lista-productos-finalizar"></ul>
+                <p>¡Gracias por tu compra!</p>
+                <button id="descargar-ticket">Descargar ticket</button>
+            </div>
+        </div>
+
         <div class="barra-divisora animate__animated animate__backInUp"></div>
+
         <footer class="pie-pagina">
             <div class="grupo-1">
                 <div class="box">
@@ -58,7 +69,7 @@
                 </div>
                 <div class="box">
                     <h2>GameStacker</h2>
-                    <P>Disfruta de los mejores titulos de videojuegos lanzados hasta el momento y de accesorios unicos
+                    <P>Disfruta de los mejores titulos de videojuegos lanzados hasta el momento y de accesorios únicos
                         para que lleves tu juego al siguiente nivel</P>
                 </div>
                 <div class="box">
@@ -87,7 +98,6 @@
             <div class="grupo-2">
                 <small> &copy: 2024 <b>GameStacker</b> - Todos los derechos reservados</small>
             </div>
-
         </footer>
     </main>
     <script src="/Scripts/carrito.js"></script>
