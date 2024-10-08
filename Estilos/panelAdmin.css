@@ -94,10 +94,6 @@ body {
     transition: 0.5s ease-in-out;
 }
 
-.card:hover {
-    cursor: url("/Recursos/joystick.png"), auto;
-}
-
 .card:hover img {
     filter: grayscale(1) brightness(0.4);
 }
@@ -128,20 +124,34 @@ p{
     font-size: 12px;
 }
 
-.btn-agregar-carrito {
+.btn-editar {
     background-color: #66c0f4;
     border: none;
     padding: 10px 20px;
     font-size: 1rem;
     color: white;
     border-radius: 5px;
-    cursor: url("/Recursos/joystick.png"), auto;
 
 }
 
-.btn-agregar-carrito:hover {
+.btn-editar:hover {
     background-color: #acd550;
-    cursor: url("/Recursos/joystick.png"), auto;
+    transition: 0.3s ease-in-out;
+}
+
+.btn-eliminar {
+    background-color: #66c0f4;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    color: white;
+    border-radius: 5px;
+
+}
+
+.btn-eliminar:hover {
+    background-color: #680404;
+    transition: 0.3s ease-in-out;
 }
 
 .card::after {
