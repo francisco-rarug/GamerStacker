@@ -12,6 +12,10 @@ body {
     background-color: #1b2838;
 }
 
+.cantidad-productos {
+    width: 120px;
+}
+
 .datos {
     color: #ddd;
 }
@@ -162,7 +166,7 @@ body {
     margin: 10px 0;
 }
 
-p{
+p {
     font-size: 12px;
 }
 
@@ -248,7 +252,7 @@ p{
 
 .no-scroll {
     overflow: hidden;
-    height: 100vh; 
+    height: 100vh;
 }
 
 .pie-pagina {

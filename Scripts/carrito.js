@@ -2,18 +2,21 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     boton.addEventListener('click', () => {
         const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText
         const precioProducto = document.querySelectorAll('.data-precio')[index].innerText
+        let cantidadProducto = parseInt(document.querySelectorAll('.cantidad-productos')[index].value);
         const precioOriginal = parseFloat(precioProducto.replace('$', ''))
-        const imgProducto = document.querySelectorAll('.image-box img')[index].src  
+        const imgProducto = document.querySelectorAll('.image-box img')[index].src
         const precio = parseFloat(precioProducto.replace('$', ''))
-        
-        let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
 
+        let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+        if (isNaN(cantidadProducto) || cantidadProducto <= 0) {
+            cantidadProducto = 1;
+        }
         const productoExistente = productosCarrito.find(producto => producto.nombre === nombreProducto)
         if (productoExistente) {
-            productoExistente.cantidad += 1
-            productoExistente.precio += precio
+            productoExistente.cantidad += cantidadProducto
+            productoExistente.precio += (precioOriginal * cantidadProducto)
         } else {
-            productosCarrito.push({ nombre: nombreProducto, precio, img: imgProducto, cantidad: 1, precioOriginal: precioOriginal })
+            productosCarrito.push({ nombre: nombreProducto, precio: (precioOriginal * cantidadProducto), img: imgProducto, cantidad: cantidadProducto, precioOriginal: precioOriginal })
         }
 
         localStorage.setItem('carrito', JSON.stringify(productosCarrito))
@@ -37,7 +40,7 @@ function cargarCarrito() {
     } else {
         productosCarrito.forEach(producto => {
             const li = document.createElement('li')
-            total += producto.precio 
+            total += producto.precio
 
             li.innerHTML = `
                 <img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> 
@@ -63,8 +66,8 @@ function modalInteracciones() {
     const close = document.querySelector(".close")
 
     const mostrarModal = () => {
-        modal.style.display = "flex" 
-        document.body.classList.add("no-scroll") 
+        modal.style.display = "flex"
+        document.body.classList.add("no-scroll")
 
         setTimeout(() => {
             modal.classList.add("show")
@@ -74,9 +77,9 @@ function modalInteracciones() {
     const ocultarModal = () => {
         modal.classList.remove("show")
         setTimeout(() => {
-            modal.style.display = "none" 
-            document.body.classList.remove("no-scroll") 
-        }, 300) 
+            modal.style.display = "none"
+            document.body.classList.remove("no-scroll")
+        }, 300)
     }
 
     close.addEventListener("click", ocultarModal)
@@ -93,7 +96,7 @@ function modalInteracciones() {
         }
     })
 
-    mostrarModal() 
+    mostrarModal()
 }
 
 // Parte para formulario modal de ticket
@@ -106,7 +109,7 @@ function cargarProductosFinalizar() {
 
     productosCarrito.forEach(producto => {
         const li = document.createElement('li')
-        total += producto.precio 
+        total += producto.precio
         li.innerHTML = `<strong>${producto.nombre}</strong> - $${producto.precio.toFixed(3)} (x${producto.cantidad})`
         listaProductosFinalizar.appendChild(li)
     })
@@ -122,12 +125,13 @@ function cargarProductosFinalizar() {
 
 const finalizarBtn = document.getElementById("finalizar")
 finalizarBtn.addEventListener("click", () => {
+
     cargarProductosFinalizar()
     const modalFinalizar = document.getElementById("modal-finalizar")
     const modalContent = modalFinalizar.querySelector('.modal-content')
 
     modalFinalizar.style.display = "block"
-    document.body.classList.add("no-scroll") 
+    document.body.classList.add("no-scroll")
 
     setTimeout(() => {
         modalContent.classList.add("show")
@@ -142,7 +146,7 @@ closeModal.addEventListener("click", () => {
     modalContent.classList.remove("show")
     setTimeout(() => {
         modalFinalizar.style.display = "none"
-        document.body.classList.remove("no-scroll") 
+        document.body.classList.remove("no-scroll")
     }, 300)
     borrar()
 })
@@ -154,13 +158,14 @@ window.addEventListener("click", (event) => {
         modalContent.classList.remove("show")
         setTimeout(() => {
             modalFinalizar.style.display = "none"
-            document.body.classList.remove("no-scroll") 
+            document.body.classList.remove("no-scroll")
         }, 300)
-        
+
     }
 })
 
-function borrar(){
+function borrar() {
+
     localStorage.removeItem('carrito')
     cargarCarrito()
 }
@@ -175,7 +180,7 @@ function borrarUltimoProducto() {
         if (index !== -1) {
             if (productosCarrito[index].cantidad > 1) {
                 productosCarrito[index].cantidad -= 1
-                productosCarrito[index].precio -= productosCarrito[index].precioOriginal 
+                productosCarrito[index].precio -= productosCarrito[index].precioOriginal
             } else {
                 productosCarrito.splice(index, 1)
             }
@@ -187,5 +192,5 @@ function borrarUltimoProducto() {
 
 const borrarBtn = document.getElementById("borrar")
 borrarBtn.addEventListener("click", () => {
-    borrarUltimoProducto()
+    borrar()
 })
