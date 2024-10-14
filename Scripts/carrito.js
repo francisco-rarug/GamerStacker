@@ -1,11 +1,15 @@
 document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     boton.addEventListener('click', () => {
         Swal.fire({
-            title: 'Producto añadido al carrito',
-            text: 'Se añadio el producto correctamente',
             icon: 'success',
-            confirmButtonText: 'Continuar'
-        });
+            title: "Producto agregado al carrito exitosamente!",
+            showDenyButton: true,
+            confirmButtonText: "Seguir agregando",
+            denyButtonText: `Ir a carrito`,
+            preDeny: () => {
+              window.location.href = 'carrito.html'; 
+            }
+          });
 
         const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText
         const precioProducto = document.querySelectorAll('.data-precio')[index].innerText
