@@ -1,5 +1,12 @@
 document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
     boton.addEventListener('click', () => {
+        Swal.fire({
+            title: 'Producto añadido al carrito',
+            text: 'Se añadio el producto correctamente',
+            icon: 'success',
+            confirmButtonText: 'Continuar'
+        });
+
         const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText
         const precioProducto = document.querySelectorAll('.data-precio')[index].innerText
         let cantidadProducto = parseInt(document.querySelectorAll('.cantidad-productos')[index].value);
@@ -20,11 +27,6 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
         }
 
         localStorage.setItem('carrito', JSON.stringify(productosCarrito))
-
-        const modal = document.getElementById("modal")
-        modal.style.display = "flex"
-
-        modalInteracciones()
     })
 })
 
@@ -58,46 +60,6 @@ function cargarCarrito() {
 }
 
 cargarCarrito()
-
-function modalInteracciones() {
-    const modal = document.getElementById("modal")
-    const botonFinalizarCompra = document.getElementById("finalizar-compra")
-    const botonSeguirComprando = document.getElementById("seguir-comprando")
-    const close = document.querySelector(".close")
-
-    const mostrarModal = () => {
-        modal.style.display = "flex"
-        document.body.classList.add("no-scroll")
-
-        setTimeout(() => {
-            modal.classList.add("show")
-        }, 10)
-    }
-
-    const ocultarModal = () => {
-        modal.classList.remove("show")
-        setTimeout(() => {
-            modal.style.display = "none"
-            document.body.classList.remove("no-scroll")
-        }, 300)
-    }
-
-    close.addEventListener("click", ocultarModal)
-
-    botonFinalizarCompra.addEventListener("click", () => {
-        window.location.href = "/Secciones/carrito.html"
-    })
-
-    botonSeguirComprando.addEventListener("click", ocultarModal)
-
-    window.addEventListener("click", (event) => {
-        if (event.target === modal) {
-            ocultarModal()
-        }
-    })
-
-    mostrarModal()
-}
 
 // Parte para formulario modal de ticket
 function cargarProductosFinalizar() {
