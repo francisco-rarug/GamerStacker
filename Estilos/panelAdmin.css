@@ -154,6 +154,32 @@ p{
     transition: 0.3s ease-in-out;
 }
 
+button.d-flex {
+    background: #66c0f4;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+button.d-flex:hover{
+    background-color: #6c2eaf;
+    transition: 0.3s ease-in-out;
+}
+
+button.d-flex i {
+    color: floralwhite;  
+}
+
+button.d-flex span {
+    color: floralwhite; 
+}  
+
 .card::after {
     content: "";
     position: absolute;
