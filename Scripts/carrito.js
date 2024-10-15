@@ -7,20 +7,19 @@ document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
             confirmButtonText: "Seguir agregando",
             denyButtonText: `Ir a carrito`,
             preDeny: () => {
-              window.location.href = 'carrito.html'; 
+                window.location.href = 'carrito.html' 
             }
-          });
+        })
 
         const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText
         const precioProducto = document.querySelectorAll('.data-precio')[index].innerText
-        let cantidadProducto = parseInt(document.querySelectorAll('.cantidad-productos')[index].value);
+        let cantidadProducto = parseInt(document.querySelectorAll('.cantidad-productos')[index].value)
         const precioOriginal = parseFloat(precioProducto.replace('$', ''))
         const imgProducto = document.querySelectorAll('.image-box img')[index].src
-        const precio = parseFloat(precioProducto.replace('$', ''))
 
         let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
         if (isNaN(cantidadProducto) || cantidadProducto <= 0) {
-            cantidadProducto = 1;
+            cantidadProducto = 1
         }
         const productoExistente = productosCarrito.find(producto => producto.nombre === nombreProducto)
         if (productoExistente) {
@@ -65,7 +64,6 @@ function cargarCarrito() {
 
 cargarCarrito()
 
-// Parte para formulario modal de ticket
 function cargarProductosFinalizar() {
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
     const listaProductosFinalizar = document.getElementById('lista-productos-finalizar')
@@ -88,11 +86,38 @@ function cargarProductosFinalizar() {
     listaProductosFinalizar.appendChild(totalElement)
 }
 
+function generarPDFTicket() {
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+
+    const { jsPDF } = window.jspdf
+    let doc = new jsPDF()
+
+    doc.setFontSize(16)
+    doc.setFont('helvetica', 'bold')
+    doc.text('Ticket de Compra', 10, 10)
+
+    doc.setFontSize(12)
+    let posicionY = 20
+
+    productosCarrito.forEach(producto => {
+        doc.text(`Producto: ${producto.nombre}`, 10, posicionY)
+        doc.text(`Cantidad: ${producto.cantidad}`, 10, posicionY + 5)
+        doc.text(`Precio: $${producto.precioOriginal.toFixed(3)}`, 10, posicionY + 10)
+        posicionY += 20
+    })
+
+    const total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0)
+    doc.text(`-------------------------`, 10, posicionY)
+    doc.text(`Total: $${total.toFixed(3)}`, 10, posicionY + 10)
+
+    doc.save('ticket_compra.pdf')
+}
+
 
 const finalizarBtn = document.getElementById("finalizar")
 finalizarBtn.addEventListener("click", () => {
-
     cargarProductosFinalizar()
+
     const modalFinalizar = document.getElementById("modal-finalizar")
     const modalContent = modalFinalizar.querySelector('.modal-content')
 
@@ -103,6 +128,12 @@ finalizarBtn.addEventListener("click", () => {
         modalContent.classList.add("show")
     }, 10)
 })
+
+const descargarBtn = document.getElementById("descargar-ticket")
+descargarBtn.addEventListener("click", () => {
+    generarPDFTicket()
+})
+
 
 const closeModal = document.getElementById("close-finalizar")
 closeModal.addEventListener("click", () => {
@@ -126,33 +157,11 @@ window.addEventListener("click", (event) => {
             modalFinalizar.style.display = "none"
             document.body.classList.remove("no-scroll")
         }, 300)
-
     }
 })
 
 function borrar() {
-
     localStorage.removeItem('carrito')
-    cargarCarrito()
-}
-
-function borrarUltimoProducto() {
-    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
-
-    if (productosCarrito.length > 0) {
-        const ultimoProducto = productosCarrito[productosCarrito.length - 1]
-        const index = productosCarrito.findIndex(producto => producto.nombre === ultimoProducto.nombre)
-
-        if (index !== -1) {
-            if (productosCarrito[index].cantidad > 1) {
-                productosCarrito[index].cantidad -= 1
-                productosCarrito[index].precio -= productosCarrito[index].precioOriginal
-            } else {
-                productosCarrito.splice(index, 1)
-            }
-        }
-        localStorage.setItem('carrito', JSON.stringify(productosCarrito))
-    }
     cargarCarrito()
 }
 
