@@ -270,6 +270,13 @@ button.d-flex span {
     }
 }
 
+@media screen and (max-width: 1000px) {
+    .productos {
+        grid-template-columns: repeat(2, 1fr);
+        padding: 20px;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .productos {
         grid-template-columns: 1fr;
@@ -279,5 +286,24 @@ button.d-flex span {
     .card {
         width: 100%;
         aspect-ratio: auto;
+    }
+
+    .btn-editar {
+        width: 70%; 
+        font-size: 0.5rem;
+    }
+
+    .btn-eliminar {
+        width: 70%; 
+        margin-top: 3px;
+        font-size: 0.5rem;
+    }
+
+    .content h2 {
+        font-size: 0.8rem; 
+    }
+
+    .content p {
+        font-size: 0.5rem;
     }
 }

@@ -468,4 +468,17 @@ p {
         width: 100%;
         aspect-ratio: auto;
     }
+
+    .btn-agregar-carrito {
+        width: 70%; 
+        font-size: 0.6rem;
+    }
+
+    .content h2 {
+        font-size: 0.8rem; 
+    }
+
+    .content p {
+        font-size: 0.5rem;
+    }
 }
