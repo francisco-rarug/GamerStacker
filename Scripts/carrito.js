@@ -1,45 +1,3 @@
-document.querySelectorAll('.btn-agregar-carrito').forEach((boton, index) => {
-    boton.addEventListener('click', () => {
-        Swal.fire({
-            icon: 'success',
-            title: "Producto agregado al carrito exitosamente!",
-            showDenyButton: true,
-            confirmButtonText: "Seguir agregando",
-            denyButtonText: "Ir a carrito",
-            preDeny: () => {
-                window.location.href = 'carrito.html'
-            }
-        })
-
-        const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText
-        const precioProducto = document.querySelectorAll('.data-precio')[index].innerText
-        let cantidadProducto = parseInt(document.querySelectorAll('.cantidad-productos')[index].value)
-        const precioOriginal = parseFloat(precioProducto.replace('$', ''))
-        const imgProducto = document.querySelectorAll('.image-box img')[index].src
-
-        let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
-        if (isNaN(cantidadProducto) || cantidadProducto <= 0) {
-            cantidadProducto = 1
-        }
-
-        const productoExistente = productosCarrito.find(producto => producto.nombre === nombreProducto)
-        if (productoExistente) {
-            productoExistente.cantidad += cantidadProducto
-            productoExistente.precio += (precioOriginal * cantidadProducto)
-        } else {
-            productosCarrito.push({
-                nombre: nombreProducto,
-                precio: (precioOriginal * cantidadProducto),
-                img: imgProducto,
-                cantidad: cantidadProducto,
-                precioOriginal: precioOriginal
-            })
-        }
-
-        localStorage.setItem('carrito', JSON.stringify(productosCarrito))
-    })
-})
-
 function cargarCarrito() {
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
     const listaProductos = document.getElementById('productos-lista')
@@ -161,9 +119,9 @@ function generarPDFTicket() {
 
 const finalizarBtn = document.getElementById("finalizar")
 finalizarBtn.addEventListener("click", () => {
-    
+
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
-    
+
     if (productosCarrito.length === 0) {
         Swal.fire({
             icon: 'warning',
