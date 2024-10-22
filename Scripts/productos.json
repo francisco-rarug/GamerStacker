@@ -35,7 +35,10 @@
             "descripcion": "Juego de construccion y aventura en un mundo abierto donde puedes crear, explorar y sobrevivir",
             "precio": 14000,
             "imagen": "/Recursos/productos/minecraft.jpg"
-        },
+        }
+    ],
+
+    "accesorios": [
         {
             "nombre": "Pc gamer",
             "descripcion": "Un equipo de alto rendimiento con procesador de última generación, tarjeta gráfica potente y capacidad para juegos en máxima calidad",
@@ -74,3 +77,7 @@
         }
     ]
 }
+
+
+        
+    

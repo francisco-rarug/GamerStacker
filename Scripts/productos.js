@@ -1,16 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
     const productosContainer = document.getElementById("productos");
+    const accesoriosContainer = document.getElementById("accesorios");
 
     fetch("/Scripts/productos.json")
         .then(response => response.json())
         .then(data => {
-            mostrarProductos(data.productos);
+            mostrarProductos(data.productos, productosContainer);
+            mostrarProductos(data.accesorios, accesoriosContainer);
         })
         .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
-    function mostrarProductos(productos) {
-        productos.forEach((producto, index) => {
-
+    function mostrarProductos(items, container) {
+        items.forEach((item) => {
             const div = document.createElement('div');
             div.className = 'card';
 
@@ -18,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function () {
             divimg.className = 'image-box';
 
             const img = document.createElement('img');
-            img.src = producto.imagen;
+            img.src = item.imagen;
             divimg.appendChild(img);
             div.appendChild(divimg);
 
@@ -27,15 +28,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const nombre = document.createElement('h2');
             nombre.className = 'data-producto';
-            nombre.textContent = producto.nombre;
+            nombre.textContent = item.nombre;
             divcontent.appendChild(nombre);
 
             const descripcion = document.createElement('p');
-            descripcion.textContent = producto.descripcion;
+            descripcion.textContent = item.descripcion;
             divcontent.appendChild(descripcion);
 
             const precio = document.createElement('p');
-            precio.textContent = producto.precio;
+            precio.textContent = item.precio;
             precio.className = 'data-precio';
             divcontent.appendChild(precio);
 
@@ -51,8 +52,9 @@ document.addEventListener("DOMContentLoaded", function () {
             boton.textContent = 'Añadir al Carrito';
             divcontent.appendChild(boton);
             div.appendChild(divcontent);
-            productosContainer.appendChild(div);
+            container.appendChild(div);
 
+            
             boton.addEventListener('click', () => {
                 Swal.fire({
                     icon: 'success',
@@ -65,21 +67,19 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
 
-                const nombreProducto = document.querySelectorAll('.data-producto')[index].innerText;
-                const precioProducto = document.querySelectorAll('.data-precio')[index].innerText;
-                let cantidadProducto = parseInt(document.querySelectorAll('.cantidad-productos')[index].value);
-                const precioOriginal = parseFloat(precioProducto.replace('$', ''));
-                const imgProducto = document.querySelectorAll('.image-box img')[index].src;
+                const cantidadProducto = parseInt(entrada.value);
+                const precioOriginal = parseFloat(precio.textContent.replace('$', ''));
+                const imgProducto = img.src;
 
                 let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
-                const productoExistente = productosCarrito.find(prod => prod.nombre === nombreProducto);
+                const productoExistente = productosCarrito.find(prod => prod.nombre === item.nombre);
                 if (productoExistente) {
                     productoExistente.cantidad += cantidadProducto;
                     productoExistente.precio += (precioOriginal * cantidadProducto);
                 } else {
                     productosCarrito.push({
-                        nombre: nombreProducto,
+                        nombre: item.nombre,
                         precio: (precioOriginal * cantidadProducto),
                         img: imgProducto,
                         cantidad: cantidadProducto,
