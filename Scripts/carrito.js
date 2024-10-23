@@ -1,3 +1,12 @@
+function formatCurrency(amount) {
+    return new Intl.NumberFormat('es-AR', {
+        style: 'currency',
+        currency: 'ARS',
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    }).format(amount);
+}
+
 function cargarCarrito() {
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
     const listaProductos = document.getElementById('productos-lista')
@@ -14,7 +23,7 @@ function cargarCarrito() {
 
             li.innerHTML = `
                 <img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> 
-                <strong>${producto.nombre}</strong> - $${producto.precio.toFixed(3)} (x${producto.cantidad})
+                <strong>${producto.nombre}</strong> - ${formatCurrency(producto.precio)} (x${producto.cantidad})
                 <button class="bin-button" data-index="${index}">
                     <svg class="bin-top" viewBox="0 0 39 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <line y1="5" x2="39" y2="5" stroke="white" stroke-width="4"></line>
@@ -36,7 +45,7 @@ function cargarCarrito() {
 
         const lineaHorizontal = document.createElement('hr')
         const totalElement = document.createElement('p')
-        totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`
+        totalElement.innerHTML = `<strong>Total: ${formatCurrency(total)}</strong>`
 
         listaProductos.appendChild(lineaHorizontal)
         listaProductos.appendChild(totalElement)
@@ -78,13 +87,13 @@ function cargarProductosFinalizar() {
     productosCarrito.forEach(producto => {
         const li = document.createElement('li')
         total += producto.precio
-        li.innerHTML = `<strong>${producto.nombre}</strong> - $${producto.precio.toFixed(3)} (x${producto.cantidad})`
+        li.innerHTML = `<strong>${producto.nombre}</strong> - ${formatCurrency(producto.precio)} (x${producto.cantidad})`
         listaProductosFinalizar.appendChild(li)
     })
 
     const lineaHorizontal = document.createElement('hr')
     const totalElement = document.createElement('p')
-    totalElement.innerHTML = `<strong>Total: $${total.toFixed(3)}</strong>`
+    totalElement.innerHTML = `<strong>Total: ${formatCurrency(total)}</strong>`
 
     listaProductosFinalizar.appendChild(lineaHorizontal)
     listaProductosFinalizar.appendChild(totalElement)
@@ -106,13 +115,13 @@ function generarPDFTicket() {
     productosCarrito.forEach(producto => {
         doc.text(`Producto: ${producto.nombre}`, 10, posicionY)
         doc.text(`Cantidad: ${producto.cantidad}`, 10, posicionY + 5)
-        doc.text(`Precio: $${producto.precioOriginal.toFixed(3)}`, 10, posicionY + 10)
+        doc.text(`Precio: ${formatCurrency(producto.precioOriginal)}`, 10, posicionY + 10)
         posicionY += 20
     })
 
     const total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0)
     doc.text('-------------------------', 10, posicionY)
-    doc.text(`Total: $${total.toFixed(3)}`, 10, posicionY + 10)
+    doc.text(`Total: ${formatCurrency(total)}`, 10, posicionY + 10)
 
     doc.save('ticket_compra.pdf')
 }
