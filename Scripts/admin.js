@@ -1,6 +1,9 @@
 document.addEventListener("DOMContentLoaded", () => {
     const modalEditar = new bootstrap.Modal(document.getElementById('modalEditar'))
 
+    const productos = JSON.parse(localStorage.getItem('productos')) || []
+    renderProductos(productos)
+
     document.querySelectorAll('.btn-editar').forEach(button => {
         button.addEventListener('click', (event) => {
             const card = event.target.closest('.card')
@@ -27,26 +30,51 @@ document.addEventListener("DOMContentLoaded", () => {
         const card = document.querySelector(`.btn-editar[data-id="${id}"]`).closest('.card')
         card.querySelector('.data-producto').textContent = nombre
         card.querySelector('p').textContent = descripcion
-        card.querySelector('.data-precio').textContent = `$${precio.replace(/\B(?=(\d{3})+(?!\d))/g, ".")}`
+        card.querySelector('.data-precio').textContent = `$${Number(precio).toLocaleString('es-AR')}`
+
+        const index = productos.findIndex(producto => producto.id == id)
+        productos[index] = { id, nombre, descripcion, precio }
+        localStorage.setItem('productos', JSON.stringify(productos))
 
         modalEditar.hide()
     })
-})
 
+    const deleteButtons = document.querySelectorAll('.btn-eliminar')
+    deleteButtons.forEach((button) => {
+        button.addEventListener('click', (event) => {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás deshacer esta acción!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminar',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const card = event.target.closest('.card')
+                    const id = event.target.getAttribute('data-id')
 
+                    card.remove()
 
-const deleteButtons = document.querySelectorAll('.btn-eliminar')
-deleteButtons.forEach((button) => {
-    button.addEventListener('click', (event) => {
-        Swal.fire({
-            title: '¿Estás seguro?',
-            text: "¡No podrás deshacer esta acción!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Sí, eliminar',
-            cancelButtonText: 'Cancelar'
+                    const index = productos.findIndex(producto => producto.id == id)
+                    productos.splice(index, 1)
+                    localStorage.setItem('productos', JSON.stringify(productos))
+
+                    Swal.fire('Eliminado!', 'El producto ha sido eliminado.', 'success')
+                }
+            })
         })
     })
+
+    function renderProductos(productos) {
+        productos.forEach(producto => {
+            const card = document.querySelector(`.btn-editar[data-id="${producto.id}"]`).closest('.card')
+            card.querySelector('.data-producto').textContent = producto.nombre
+            card.querySelector('p').textContent = producto.descripcion
+            card.querySelector('.data-precio').textContent = `$${Number(precio).toLocaleString('es-AR')}`
+
+        })
+    }
 })
