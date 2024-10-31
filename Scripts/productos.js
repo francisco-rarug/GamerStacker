@@ -1,14 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     const productosContainer = document.getElementById("productos")
     const accesoriosContainer = document.getElementById("accesorios")
+    let listaJuegos = [];
+    let listaPerrifericos = [];
 
-    fetch("/Scripts/productos.json")
-        .then(response => response.json())
-        .then(data => {
-            mostrarProductos(data.productos, productosContainer)
-            mostrarProductos(data.accesorios, accesoriosContainer)
-        })
-        .catch(error => console.error('Error al cargar el archivo JSON:', error))
+    try {
+        const response = await fetch("http://localhost:3000/juego");
+        const productos = await response.json();
+        productos.forEach(producto => {
+            if (producto.tipo === 'juego') {
+                listaJuegos.push(producto)
+            } else {
+                listaPerrifericos.push(producto)
+            }
+        });
+
+        mostrarProductos(listaJuegos, productosContainer)
+        mostrarProductos(listaPerrifericos, accesoriosContainer)
+    } catch (error) {
+        console.error("Error al cargar los datos:", error);
+    }
+
 
     function mostrarProductos(items, container) {
         items.forEach((item) => {
@@ -54,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             div.appendChild(divcontent)
             container.appendChild(div)
 
-            
+
             boton.addEventListener('click', () => {
                 Swal.fire({
                     icon: 'success',

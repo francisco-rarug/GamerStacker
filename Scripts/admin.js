@@ -1,105 +1,138 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const modalEditar = new bootstrap.Modal(document.getElementById('modalEditar'))
+document.addEventListener("DOMContentLoaded", async function () {
     const productosContainer = document.getElementById("productos")
     const accesoriosContainer = document.getElementById("accesorios")
+    let listaJuegos = [];
+    let listaPerrifericos = [];
 
-    fetch('/Scripts/admin.json')
-        .then(response => response.json())
-        .then(data => {
-            mostrarProductos(data.productos, productosContainer)
-            mostrarProductos(data.accesorios, accesoriosContainer)
-            localStorage.setItem('productos', JSON.stringify(data.productos))
-            localStorage.setItem('accesorios', JSON.stringify(data.accesorios))
-            borrarProductos()
-        })
-        .catch(error => console.error('Error al cargar el archivo JSON:', error))
+    try {
+        const response = await fetch("http://localhost:3000/juego");
+        const productos = await response.json();
+        productos.forEach(producto => {
+            if (producto.tipo === 'juego') {
+                listaJuegos.push(producto)
+            } else {
+                listaPerrifericos.push(producto)
+            }
+        });
 
-    document.getElementById('guardarCambios').addEventListener('click', () => {
-        const id = document.getElementById('productoId').value
-        const nombre = document.getElementById('nombreProducto').value
-        const descripcion = document.getElementById('descripcionProducto').value
-        const precio = document.getElementById('precioProducto').value
-
-        const productos = JSON.parse(localStorage.getItem('productos'))
-        const card = document.querySelector(`.btn-editar[data-id="${id}"]`).closest('.card')
-        card.querySelector('.data-producto').textContent = nombre
-        card.querySelector('p').textContent = descripcion
-        card.querySelector('.data-precio').textContent = `$${Number(precio).toLocaleString('es-AR')}`
-
-        const index = productos.findIndex(producto => producto.id == id)
-        productos[index] = { id, nombre, descripcion, precio }
-        localStorage.setItem('productos', JSON.stringify(productos))
-
-        modalEditar.hide()
-    })
-
-    function borrarProductos() {
-        const deleteButtons = document.querySelectorAll('.btn-eliminar')
-        deleteButtons.forEach((button) => {
-            button.addEventListener('click', (event) => {
-                Swal.fire({
-                    title: '¿Estás seguro?',
-                    text: "¡No podrás deshacer esta acción!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sí, eliminar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const card = event.target.closest('.card')
-                        const id = event.target.getAttribute('data-id')
-
-                        card.remove()
-
-                        const productos = JSON.parse(localStorage.getItem('productos'))
-                        const index = productos.findIndex(producto => producto.id == id)
-                        productos.splice(index, 1)
-                        localStorage.setItem('productos', JSON.stringify(productos))
-
-                        Swal.fire('Eliminado!', 'El producto ha sido eliminado.', 'success')
-                    }
-                })
-            })
-        })
-
-        document.querySelectorAll('.btn-editar').forEach(button => {
-            button.addEventListener('click', (event) => {
-                const card = event.target.closest('.card')
-                const nombre = card.querySelector('.data-producto').textContent
-                const descripcion = card.querySelector('p').textContent
-                const precio = card.querySelector('.data-precio').textContent.replace('$', '').replace('.', '').replace(',', '')
-                const id = event.target.getAttribute('data-id')
-
-                document.getElementById('nombreProducto').value = nombre
-                document.getElementById('descripcionProducto').value = descripcion
-                document.getElementById('precioProducto').value = precio
-                document.getElementById('productoId').value = id
-
-                modalEditar.show()
-            })
-        })
+        mostrarProductos(listaJuegos, productosContainer)
+        mostrarProductos(listaPerrifericos, accesoriosContainer)
+    } catch (error) {
+        console.error("Error al cargar los datos:", error);
     }
 
-    function mostrarProductos(productos, contenedor) {
-        contenedor.innerHTML = ''
-        productos.forEach(producto => {
-            const cardProducto = `
-            <div class="card">
-                <div class="image-box">
-                    <img src="${producto.imagen}" alt="${producto.nombre}">
-                </div>
-                <div class="content">
-                    <h2 class="data-producto">${producto.nombre}</h2>
-                    <p>${producto.descripcion}</p>
-                    <p class="data-precio">$${Number(producto.precio).toLocaleString('es-AR')}</p>
-                    <button class="btn-editar" data-id="${producto.id}">Editar</button>
-                    <button class="btn-eliminar" data-id="${producto.id}">Eliminar</button>
-                </div>
-            </div>
-        `
-            contenedor.innerHTML += cardProducto
+
+    function mostrarProductos(productos, container) {
+        productos.forEach((producto) => {
+            const div = document.createElement('div')
+            div.className = 'card'
+
+            const divimg = document.createElement('div')
+            divimg.className = 'image-box'
+
+            const img = document.createElement('img')
+            img.src = producto.imagen
+            divimg.appendChild(img)
+            div.appendChild(divimg)
+
+            const divcontent = document.createElement('div')
+            divcontent.className = 'content'
+
+            const nombre = document.createElement('h2')
+            nombre.className = 'data-producto'
+            nombre.textContent = producto.nombre
+            divcontent.appendChild(nombre)
+
+            const descripcion = document.createElement('p')
+            descripcion.textContent = producto.descripcion
+            divcontent.appendChild(descripcion)
+
+            const precio = document.createElement('p')
+            precio.textContent = producto.precio
+            precio.className = 'data-precio'
+            divcontent.appendChild(precio)
+
+            const editar = document.createElement('button')
+            editar.className = 'btn-editar'
+            editar.textContent = 'Editar'
+            divcontent.appendChild(editar)
+
+            const eliminar = document.createElement('button')
+            eliminar.className = 'btn-eliminar'
+            eliminar.textContent = 'Eliminar'
+            divcontent.appendChild(eliminar)
+
+            div.appendChild(divcontent)
+            container.appendChild(div)
+
+            eliminar.addEventListener('click', () => {
+                Swal.fire({
+                    icon: 'success',
+                    title: "Desea eliminar el producto?",
+                    showDenyButton: true,
+                    confirmButtonText: "ok!",
+                    denyButtonText: "cancelar!",
+                }).then(async (resultado) => {
+                    if (resultado.isDenied) {
+                        console.log("Producto cancelado!");
+                    } else if (resultado.isConfirmed) {
+                        try {
+                            const pedido = await fetch("http://localhost:3000/juego/" + producto.id, {
+                                method: "DELETE",
+                            });
+
+                            const respuesta = await pedido.json();
+                            location.reload();
+                        } catch (error) {
+                            console.error('Error al agregar producto:', error);
+                        }
+                    }
+
+                });
+
+            });
         })
     }
 })
+
+
+
+
+/*
+fetch("/Scripts/productos.json")
+    .then(response => response.json())
+    .then(data => {
+        agregarDb(data.productos);
+    })
+    .catch(error => console.error('Error al cargar el archivo JSON:', error));
+
+async function agregarDb(productos) {
+    for (const producto of productos) {
+        const datos = {
+            nombre: producto.nombre,
+            descripcion: producto.descripcion,
+            precio: producto.precio,
+            imagen: producto.imagen,
+            tipo: producto.tipo,
+        };
+
+        try {
+            const pedido = await fetch("http://localhost:3000/juego", {
+                method: "POST",
+                body: JSON.stringify(datos),
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            if (!pedido.ok) {
+                throw new Error(`Error en la respuesta: ${pedido.status}`);
+            }
+
+            const respuesta = await pedido.json();
+            console.log('Producto agregado:', respuesta);
+        } catch (error) {
+            console.error('Error al agregar producto:', error);
+        }
+    }
+}*/
