@@ -95,7 +95,29 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 })
 
+const insertar = document.getElementById("guardarNuevoJuego");
+insertar.addEventListener("click", async () => {
 
+    const datos = {
+        nombre: document.getElementById("nombreJuego").value,
+        descripcion: document.getElementById("descripcionJuego").value,
+        precio: document.getElementById("precioJuego").value,
+        imagen: document.getElementById("imagenJuego").value,
+        tipo: "juego",
+    };
+
+    const pedido = await fetch("http://localhost:3000/juego", {
+        method: "POST",
+        body: JSON.stringify(datos),
+        headers: {
+            "Content-Type": "application/json",
+        },
+    });
+
+    const respuesta = await pedido.json();
+    location.reload();
+    console.log(respuesta);
+})
 
 
 /*
@@ -135,4 +157,5 @@ async function agregarDb(productos) {
             console.error('Error al agregar producto:', error);
         }
     }
-}*/
+}
+*/
