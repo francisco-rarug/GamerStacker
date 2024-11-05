@@ -19,8 +19,12 @@ app.use(bodyParser.json());
 const sequelize = require("./db/sequelize");
 const juegoSequelize = require("./entity/juegos.entity");
 const juegosRoutes = require("./routes/producto.routes");
+
 app.use("/juego", juegosRoutes);
 
+const path = require("path");
+
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 async function startServer() {
     try {
         await sequelize.authenticate();

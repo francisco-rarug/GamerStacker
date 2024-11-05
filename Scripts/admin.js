@@ -98,20 +98,19 @@ document.addEventListener("DOMContentLoaded", async function () {
 const insertar = document.getElementById("guardarNuevoJuego");
 insertar.addEventListener("click", async () => {
 
-    const datos = {
-        nombre: document.getElementById("nombreJuego").value,
-        descripcion: document.getElementById("descripcionJuego").value,
-        precio: document.getElementById("precioJuego").value,
-        imagen: document.getElementById("imagenJuego").value,
-        tipo: "juego",
-    };
+
+    const datos = new FormData();
+    datos.append("nombre", document.getElementById("nombreJuego").value);
+    datos.append("descripcion", document.getElementById("descripcionJuego").value);
+    datos.append("precio", document.getElementById("precioJuego").value);
+    datos.append("imagen", document.getElementById("imagenJuego").files[0]);
+    datos.append("tipo", document.getElementById("tipoJuego").value);
+
+
 
     const pedido = await fetch("http://localhost:3000/juego", {
         method: "POST",
-        body: JSON.stringify(datos),
-        headers: {
-            "Content-Type": "application/json",
-        },
+        body: datos,
     });
 
     const respuesta = await pedido.json();
@@ -157,5 +156,4 @@ async function agregarDb(productos) {
             console.error('Error al agregar producto:', error);
         }
     }
-}
-*/
+}*/

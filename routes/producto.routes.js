@@ -5,35 +5,40 @@ const express = require("express");
 const router = express.Router();
 
 
-//importa la clase auto
-const Juego = require("../Scripts/juego.js")
+
+
 const JuegoSequelize = require("../entity/juegos.entity");
-//obtener datos del body por post, crea un objeto y lo muestra por postman
-router.post("/", async (require, response) => {
-    const nombre = require.body.nombre;
-    const descripcion = require.body.descripcion;
-    const precio = require.body.precio;
-    const imagen = require.body.imagen;
-    const tipo = require.body.tipo;
 
-    const juego = new Juego();
-    juego.nombre = nombre;
-    juego.descripcion = descripcion;
-    juego.precio = precio;
-    juego.imagen = imagen;
-    juego.tipo = tipo;
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
-    const resultado = await JuegoSequelize.create({
-        ...juego,
-    });
+router.post("/", upload.single("imagen"), async (req, res) => {
+    const nombre = req.body.nombre;
+    const descripcion = req.body.descripcion;
+    const precio = req.body.precio;
+    const imagen = req.file ? `/uploads/${req.file.filename}` : null;
+    const tipo = req.body.tipo;
 
-    response.send(resultado);
+    const juego = {
+        nombre,
+        descripcion,
+        precio,
+        imagen,
+        tipo,
+    };
+    const resultado = await JuegoSequelize.create(juego);
+
+    res.send(resultado);
 })
+
+
+
 router.get("/", async (req, res) => {
     const resultado = await JuegoSequelize.findAll();
 
     res.send(resultado);
 });
+
 router.delete("/:id", async (req, res) => {
     const resultado = JuegoSequelize.destroy({
         where: {

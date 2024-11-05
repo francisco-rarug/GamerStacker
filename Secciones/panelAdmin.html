@@ -44,7 +44,7 @@
         </button>
 
 
-        <div class="modal fade" id="modalAñadir" tabindex="-1" aria-labelledby="modalAñadirLabel" aria-hidden="true">
+        <form class="modal fade" id="modalAñadir" tabindex="-1" aria-labelledby="modalAñadirLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -67,8 +67,16 @@
                                 <input type="number" class="form-control" id="precioJuego" name="precioJuego" required>
                             </div>
                             <div class="mb-3">
-                                <label for="imagenJuego" class="form-label">URL de la imagen</label>
-                                <input type="image" class="form-control" id="imagenJuego" name="imagenJuego" required>
+                                <label for="imagenJuego" class="form-label">Imagen del Producto</label>
+                                <input type="file" class="form-control" id="imagenJuego" name="imagenJuego" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipoJuego" class="form-label">Tipo de Producto</label>
+                                <select class="form-control" id="tipoJuego" name="tipoJuego" required>
+
+                                    <option value="juego">juego</option>
+                                    <option value="periferico">periferico</option>
+                                </select>
                             </div>
                         </form>
                     </div>
@@ -78,7 +86,8 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+
 
         <section class="productos" id="productos">
 
@@ -88,10 +97,7 @@
             <h3 class="sub-titulo">Accesorios</h3>
         </div>
 
-        <button class="d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#modalAñadir">
-            <i class="bi bi-patch-plus-fill fs-3"></i>
-            <span class="ms-2">Añadir nuevo accesorio</span>
-        </button>
+
 
         <section class="productos" id="accesorios"></section>
 
