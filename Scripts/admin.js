@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    const productosContainer = document.getElementById("productos");
-    const accesoriosContainer = document.getElementById("accesorios");
-
 
     let listaJuegos = [];
     let listaPerrifericos = [];
@@ -16,6 +13,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     try {
         const response = await fetch("http://localhost:3000/juego");
         const productos = await response.json();
+
+        const productosContainer = document.getElementById("productos");
+        const accesoriosContainer = document.getElementById("accesorios");
+
+
 
         productos.forEach(producto => {
             if (producto.tipo === 'juego') {
@@ -182,9 +184,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         modalAñadir.show();
     }
 
-    modalElement.addEventListener('hidden.bs.modal', () => {
+
+    const cerrarForm = document.getElementById("cerrarJuego");
+    cerrarForm.addEventListener("click", async () => {
         limpiarFormulario();
-    });
+    })
+
+
 
 
     function limpiarFormulario() {
