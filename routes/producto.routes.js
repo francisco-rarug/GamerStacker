@@ -47,11 +47,23 @@ router.delete("/:id", async (req, res) => {
     });
     res.send(resultado);
 });
-router.put("/:id", async (req, res) => {
+router.put("/:id", upload.single("imagen"), async (req, res) => {
+    const nombre = req.body.nombre;
+    const descripcion = req.body.descripcion;
+    const precio = req.body.precio;
+    const imagen = req.file ? `/uploads/${req.file.filename}` : null;
+    const tipo = req.body.tipo;
+
+    const juego = {
+        nombre,
+        descripcion,
+        precio,
+        imagen,
+        tipo,
+    };
     const resultado = await JuegoSequelize.update(
-        {
-            ...req.body,
-        },
+
+        juego,
         {
             where: {
                 id: req.params.id

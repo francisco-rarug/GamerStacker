@@ -1,7 +1,7 @@
 const sequelize = require("../db/sequelize");
 const { DataTypes } = require('sequelize')
 const AutoSequelize = sequelize.define(
-    "Productos",
+    "productos",
     {
         id: {
             type: DataTypes.INTEGER,
