@@ -143,3 +143,24 @@ button {
         font-size: 14px;
     }
 }
+
+/* Modo oscuro */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode .form-registro{
+    background-color: #242424;
+    color: #ffffff;
+}
+
+body.dark-mode .div-imagen{
+    background-color: #242424;
+    color: #ffffff;
+}
+
+body.dark-mode{
+    background: rgb(40,72,182);
+    background: linear-gradient(90deg, rgba(40,72,182,1) 0%, rgba(0,0,0,1) 19%, rgba(73,72,70,1) 100%);
+}

@@ -483,3 +483,95 @@ body {
         grid-template-columns: 1fr;
     }
 }
+
+/* Modo oscuro */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode {
+    background: #15191d;
+}
+
+body.dark-mode .barra-divisora{
+    background-color: #212529;
+}
+
+body.dark-mode .sub-titulo{
+    color: #ffffff;
+}
+
+body.dark-mode .pie-pagina{
+    background: rgb(21,50,89);
+    background: radial-gradient(circle, rgba(21,50,89,1) 0%, rgba(8,8,8,1) 17%, rgba(11,17,26,1) 78%);
+}
+
+body.dark-mode .redes-sociales{
+    color: #ffffff;
+}
+
+body.dark-mode h2{
+    color: #ffffff;
+}
+
+body.dark-mode .precio{
+    color: #e96666;
+}
+
+body.dark-mode p{
+    color: #ffffff;
+}
+
+body.dark-mode small{
+    color: #ffffff;
+}
+
+body.dark-mode strong{
+    color: #000000;
+}
+
+body.dark-mode li{
+    color: #000000;
+}
+
+body.dark-mode .btn-finalizar {
+    --gray: #808080;
+    border: 2px solid var(--gray);
+    background: linear-gradient(to right, rgba(128, 128, 128, 0.1) 1%, transparent 40%, transparent 60%, rgba(128, 128, 128, 0.1) 100%);
+    color: var(--gray);
+    box-shadow: inset 0 0 10px rgba(128, 128, 128, 0.4), 0 0 9px 3px rgba(128, 128, 128, 0.1);
+}
+
+body.dark-mode .btn-finalizar:hover {
+    color: #b3b3b3;
+    box-shadow: inset 0 0 10px rgba(128, 128, 128, 0.6), 0 0 9px 3px rgba(128, 128, 128, 0.2);
+}
+
+body.dark-mode .btn-finalizar:before {
+    background: linear-gradient(to right, transparent 1%, rgba(128, 128, 128, 0.1) 40%, rgba(128, 128, 128, 0.1) 60%, transparent 100%);
+}
+
+body.dark-mode .contenedor{
+    color: #ffffff;
+    background-color: #212529;
+}
+
+body.dark-mode .buttonTitulo {
+    --text-stroke-color: #b3b3b3; 
+    --animation-color: #c50ba0; 
+}
+
+body.dark-mode .buttonTitulo .hover-text {
+    -webkit-text-stroke: 1px var(--animation-color);
+    border-right: var(--border-right) solid var(--animation-color);
+}
+
+body.dark-mode .buttonTitulo:hover .hover-text {
+    filter: drop-shadow(0 0 23px var(--animation-color));
+}
+
+body.dark-mode .dark-popup{
+    background-color: #121212;
+    color: white;
+}

@@ -482,3 +482,90 @@ p {
         font-size: 0.5rem;
     }
 }
+
+
+/* Modo oscuro */
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode {
+    background-color: #15191d;
+}
+
+body.dark-mode .barra-divisora{
+    background-color: #212529;
+}
+
+body.dark-mode .sub-titulo{
+    color: #ffffff;
+}
+
+body.dark-mode .pie-pagina{
+    background: rgb(21,50,89);
+    background: radial-gradient(circle, rgba(21,50,89,1) 0%, rgba(8,8,8,1) 17%, rgba(11,17,26,1) 78%);
+}
+
+body.dark-mode .redes-sociales{
+    color: #ffffff;
+}
+
+body.dark-mode h2{
+    color: #ffffff;
+}
+
+body.dark-mode p{
+    color: #ffffff;
+}
+
+body.dark-mode small{
+    color: #ffffff;
+}
+
+body.dark-mode .buttonTitulo {
+    --text-stroke-color: #b3b3b3; 
+    --animation-color: #c50ba0; 
+}
+
+body.dark-mode .buttonTitulo .hover-text {
+    -webkit-text-stroke: 1px var(--animation-color);
+    border-right: var(--border-right) solid var(--animation-color);
+}
+
+body.dark-mode .buttonTitulo:hover .hover-text {
+    filter: drop-shadow(0 0 23px var(--animation-color));
+}
+
+
+body.dark-mode .imagen-tarjeta {
+    background: linear-gradient(rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.1)),
+        url('/Recursos/spiderman.webp') no-repeat center center/cover;
+}
+
+body.dark-mode .imagen-tarjeta h1 {
+    color: #b3b3b3; 
+    text-shadow: 2px 2px 2px rgb(77, 77, 77); 
+}
+
+body.dark-mode .imagen-tarjeta h6 {
+    color: #808080; 
+}
+
+body.dark-mode .imagen-tarjeta p {
+    color: #999999; 
+    text-shadow: 2px 2px 2px #666666; 
+}
+
+body.dark-mode .dark-popup{
+    background-color: #121212;
+    color: white;
+}
+
+body.dark-mode .btn-agregar-carrito{
+    background-color: #1b2838;
+}
+
+body.dark-mode .btn-agregar-carrito:hover{
+    background-color: #c50ba0;
+}

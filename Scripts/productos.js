@@ -76,7 +76,11 @@ document.addEventListener("DOMContentLoaded", async function () {
                     denyButtonText: `Ir a carrito`,
                     preDeny: () => {
                         window.location.href = 'carrito.html'
+                    },
+                    customClass: {
+                        popup: 'dark-popup'
                     }
+                    
                 })
 
                 const cantidadProducto = parseInt(entrada.value)

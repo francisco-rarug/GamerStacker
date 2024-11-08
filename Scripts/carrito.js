@@ -45,7 +45,7 @@ function cargarCarrito() {
 
         const lineaHorizontal = document.createElement('hr')
         const totalElement = document.createElement('p')
-        totalElement.innerHTML = `<strong>Total: ${formatCurrency(total)}</strong>`
+        totalElement.innerHTML = `<strong class="precio">Total: ${formatCurrency(total)}</strong>`
 
         listaProductos.appendChild(lineaHorizontal)
         listaProductos.appendChild(totalElement)
@@ -93,7 +93,7 @@ function cargarProductosFinalizar() {
 
     const lineaHorizontal = document.createElement('hr')
     const totalElement = document.createElement('p')
-    totalElement.innerHTML = `<strong>Total: ${formatCurrency(total)}</strong>`
+    totalElement.innerHTML = `<strong> Total: ${formatCurrency(total)}</strong>`
 
     listaProductosFinalizar.appendChild(lineaHorizontal)
     listaProductosFinalizar.appendChild(totalElement)
@@ -136,7 +136,11 @@ finalizarBtn.addEventListener("click", () => {
             icon: 'warning',
             title: 'Atencion!',
             text: 'Por favor, agrega productos al carrito antes de finalizar la compra!',
-            confirmButtonText: 'Aceptar'
+            confirmButtonText: 'Aceptar',
+            customClass: {
+                popup: 'dark-popup'
+            }
+            
         })
         return
     }

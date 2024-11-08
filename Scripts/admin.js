@@ -90,6 +90,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                     showDenyButton: true,
                     confirmButtonText: "Ok",
                     denyButtonText: "Cancelar",
+                    customClass: {
+                        popup: 'dark-popup'
+                    }
                 }).then(async (resultado) => {
                     if (resultado.isConfirmed) {
                         try {
@@ -136,9 +139,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
                 Swal.fire({
                     icon: 'success',
-                    title: 'Producto agregado correctamente',
+                    title: 'Producto editado correctamente',
                     timer: 1500,
                     showConfirmButton: false,
+                    customClass: {
+                        popup: 'dark-popup'
+                    }
                 }).then(() => location.reload());
             } catch (error) {
                 console.error('Error al agregar producto:', error);
@@ -158,6 +164,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                     title: 'Producto agregado correctamente',
                     timer: 1500,
                     showConfirmButton: false,
+                    customClass: {
+                        popup: 'dark-popup'
+                    }
                 }).then(() => location.reload());
             } catch (error) {
                 console.error('Error al agregar producto:', error);
@@ -203,41 +212,4 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
-/*
-fetch("/Scripts/productos.json")
-    .then(response => response.json())
-    .then(data => {
-        agregarDb(data.productos);
-    })
-    .catch(error => console.error('Error al cargar el archivo JSON:', error));
 
-async function agregarDb(productos) {
-    for (const producto of productos) {
-        const datos = {
-            nombre: producto.nombre,
-            descripcion: producto.descripcion,
-            precio: producto.precio,
-            imagen: producto.imagen,
-            tipo: producto.tipo,
-        };
-
-        try {
-            const pedido = await fetch("http://localhost:3000/juego", {
-                method: "POST",
-                body: JSON.stringify(datos),
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            });
-
-            if (!pedido.ok) {
-                throw new Error(Error en la respuesta: ${pedido.status});
-            }
-
-            const respuesta = await pedido.json();
-            console.log('Producto agregado:', respuesta);
-        } catch (error) {
-            console.error('Error al agregar producto:', error);
-        }
-    }
-}*/
