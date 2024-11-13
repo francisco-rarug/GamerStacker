@@ -20,6 +20,11 @@ const sequelize = require("./db/sequelize");
 const juegoSequelize = require("./entity/juegos.entity");
 const juegosRoutes = require("./routes/producto.routes");
 
+const AdminSequelize = require("./entity/admin.entity");
+const AdminRoutes = require("./routes/admin.routes");
+
+app.use("/contrasenia", AdminRoutes)
+
 app.use("/juego", juegosRoutes);
 
 const path = require("path");
@@ -28,6 +33,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 async function startServer() {
     try {
         await sequelize.authenticate();
+        await AdminSequelize.sync();
         await juegoSequelize.sync();
         console.log("Connection has been established successfully.");
 
