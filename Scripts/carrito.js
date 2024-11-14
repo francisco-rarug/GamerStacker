@@ -126,6 +126,41 @@ function generarPDFTicket() {
     doc.save('ticket_compra.pdf')
 }
 
+
+async function cargarVenta() {
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+
+    let total = 0
+
+    productosCarrito.forEach(productoCarrito => {
+        total += productoCarrito.precio
+    })
+
+    productosCarrito.forEach(async productoCarrito => {
+        try {
+            const pedido = await fetch("http://localhost:3000/venta", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    nombre: productoCarrito.nombre,
+                    cantidad: productoCarrito.cantidad,
+                    precioUnitario: productoCarrito.precioOriginal,
+                    totalProducto: productoCarrito.precio,
+                    totalVenta: total,
+                }),
+            });
+
+            const respuesta = await pedido.json();
+            console.log(respuesta); // Para verificar la respuesta
+        } catch (error) {
+            console.error("Error en la solicitud de guardar venta:", error);
+        }
+    });
+}
+
+
 const finalizarBtn = document.getElementById("finalizar")
 finalizarBtn.addEventListener("click", () => {
 
@@ -140,13 +175,13 @@ finalizarBtn.addEventListener("click", () => {
             customClass: {
                 popup: 'dark-popup'
             }
-            
+
         })
         return
     }
 
     cargarProductosFinalizar()
-
+    cargarVenta()
     const modalFinalizar = document.getElementById("modal-finalizar")
     const modalContent = modalFinalizar.querySelector('.modal-content')
 

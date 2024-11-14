@@ -23,7 +23,12 @@ const juegosRoutes = require("./routes/producto.routes");
 const AdminSequelize = require("./entity/admin.entity");
 const AdminRoutes = require("./routes/admin.routes");
 
+const VentaSequelize = require("./entity/ventas.entity");
+const VentaRoutes = require("./routes/ventas.routes");
+
 app.use("/contrasenia", AdminRoutes)
+
+app.use("/venta", VentaRoutes)
 
 app.use("/juego", juegosRoutes);
 
@@ -35,6 +40,7 @@ async function startServer() {
         await sequelize.authenticate();
         await AdminSequelize.sync();
         await juegoSequelize.sync();
+        await VentaSequelize.sync();
         console.log("Connection has been established successfully.");
 
 
