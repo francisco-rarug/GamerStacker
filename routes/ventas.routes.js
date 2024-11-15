@@ -10,6 +10,8 @@ const router = express.Router();
 const VentaSequelize = require("../entity/ventas.entity");
 
 router.post("/", async (req, res) => {
+    const id_venta = req.body.id_venta;
+    const nombre_usuario = req.body.nombre_usuario;
     const nombre = req.body.nombre;
     const cantidad = req.body.cantidad;
     const precioUnitario = req.body.precioUnitario;
@@ -18,6 +20,8 @@ router.post("/", async (req, res) => {
 
 
     const venta = {
+        id_venta: id_venta,
+        nombre_usuario: nombre_usuario,
         nombre_producto: nombre,
         cantidad_producto: cantidad,
         precio_producto: precioUnitario,
@@ -29,6 +33,11 @@ router.post("/", async (req, res) => {
     res.send(resultado);
 })
 
+router.get("/", async (req, res) => {
+    const resultado = await VentaSequelize.findAll();
+
+    res.send(resultado);
+});
 
 
 

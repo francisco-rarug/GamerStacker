@@ -131,6 +131,28 @@ async function cargarVenta() {
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
 
     let total = 0
+    let id_venta
+    try {
+        const response = await fetch("http://localhost:3000/venta");
+        const ventas = await response.json();
+
+        if (ventas.length < 1) {
+            id_venta = 1;
+        } else {
+
+            let maxId = 0;
+            ventas.forEach(venta => {
+                if (venta.id_venta > maxId) {
+                    maxId = venta.id_venta;
+                }
+            });
+            id_venta = maxId + 1;
+        }
+
+    } catch (error) {
+        console.error("Error al cargar los datos:", error);
+    }
+
 
     productosCarrito.forEach(productoCarrito => {
         total += productoCarrito.precio
@@ -138,12 +160,16 @@ async function cargarVenta() {
 
     productosCarrito.forEach(async productoCarrito => {
         try {
+            const nombre_usuario = document.getElementById("datos").textContent;
+
             const pedido = await fetch("http://localhost:3000/venta", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
+                    id_venta: id_venta,
+                    nombre_usuario: nombre_usuario,
                     nombre: productoCarrito.nombre,
                     cantidad: productoCarrito.cantidad,
                     precioUnitario: productoCarrito.precioOriginal,
