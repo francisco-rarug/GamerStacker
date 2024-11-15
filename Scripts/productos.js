@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
             const descripcion = document.createElement('p')
             descripcion.textContent = item.descripcion
+            descripcion.className = 'descripcion'
             divcontent.appendChild(descripcion)
 
             const precio = document.createElement('p')
@@ -53,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             divcontent.appendChild(precio)
 
             const entrada = document.createElement('input')
-            entrada.className = 'cantidad-productos'
+            entrada.className = 'search-input'
             entrada.type = 'number'
             entrada.min = 1
             entrada.placeholder = 'Cantidad: '

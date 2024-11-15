@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             divcontent.appendChild(nombre);
 
             const descripcion = document.createElement('p');
+            descripcion.className = 'descripcion';
             descripcion.textContent = producto.descripcion;
             divcontent.appendChild(descripcion);
 

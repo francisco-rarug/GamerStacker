@@ -164,7 +164,11 @@ body {
 }
 
 p{
-    font-size: 12px;
+    font-size: 1em;
+}
+
+.data-precio{
+    font-size: 1.5em;
 }
 
 .btn-editar {
@@ -174,7 +178,7 @@ p{
     font-size: 1rem;
     color: white;
     border-radius: 5px;
-    margin: 15px;
+    margin: 10px;
 
 }
 
@@ -290,23 +294,31 @@ button.d-flex span {
     }
 
     .btn-editar {
-        width: 70%; 
+        width: 50%; 
         font-size: 0.5rem;
     }
 
     .btn-eliminar {
-        width: 70%; 
-        margin-top: 3px;
+        width: 50%; 
         font-size: 0.5rem;
     }
 
     .content h2 {
-        font-size: 0.8rem; 
+        font-size: 1rem; 
     }
 
     .content p {
-        font-size: 0.5rem;
+        font-size: 1rem;
     }
+
+    .descripcion{
+        display: none;
+    }
+
+    .card:hover::after {
+        display: none;
+    }
+    
 }
 
 /* Modo oscuro */
