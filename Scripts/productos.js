@@ -69,42 +69,53 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
             boton.addEventListener('click', () => {
-                Swal.fire({
-                    icon: 'success',
-                    title: "Producto agregado al carrito exitosamente!",
-                    showDenyButton: true,
-                    confirmButtonText: "Seguir agregando",
-                    denyButtonText: `Ir a carrito`,
-                    preDeny: () => {
-                        window.location.href = 'carrito.html'
-                    },
-                    customClass: {
-                        popup: 'dark-popup'
-                    }
-                    
-                })
+                if (parseInt(entrada.value) > 0) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: "Producto agregado al carrito exitosamente!",
+                        showDenyButton: true,
+                        confirmButtonText: "Seguir agregando",
+                        denyButtonText: `Ir a carrito`,
+                        preDeny: () => {
+                            window.location.href = 'carrito.html'
+                        },
+                        customClass: {
+                            popup: 'dark-popup'
+                        }
 
-                const cantidadProducto = parseInt(entrada.value)
-                const precioOriginal = parseFloat(precio.textContent.replace('$', ''))
-                const imgProducto = img.src
-
-                let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
-
-                const productoExistente = productosCarrito.find(prod => prod.nombre === item.nombre)
-                if (productoExistente) {
-                    productoExistente.cantidad += cantidadProducto
-                    productoExistente.precio += (precioOriginal * cantidadProducto)
-                } else {
-                    productosCarrito.push({
-                        nombre: item.nombre,
-                        precio: (precioOriginal * cantidadProducto),
-                        img: imgProducto,
-                        cantidad: cantidadProducto,
-                        precioOriginal: precioOriginal
                     })
-                }
+                    const cantidadProducto = parseInt(entrada.value)
+                    const precioOriginal = parseFloat(precio.textContent.replace('$', ''))
+                    const imgProducto = img.src
 
-                localStorage.setItem('carrito', JSON.stringify(productosCarrito))
+                    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+
+                    const productoExistente = productosCarrito.find(prod => prod.nombre === item.nombre)
+                    if (productoExistente) {
+                        productoExistente.cantidad += cantidadProducto
+                        productoExistente.precio += (precioOriginal * cantidadProducto)
+                    } else {
+                        productosCarrito.push({
+                            nombre: item.nombre,
+                            precio: (precioOriginal * cantidadProducto),
+                            img: imgProducto,
+                            cantidad: cantidadProducto,
+                            precioOriginal: precioOriginal
+                        })
+                    }
+
+                    localStorage.setItem('carrito', JSON.stringify(productosCarrito))
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Cantidad inválida',
+                        text: 'Por favor, ingresa una cantidad mayor o igual a 1.',
+                        customClass: {
+                            popup: 'dark-popup'
+                        }
+                    });
+                    return;
+                }
             })
         })
     }
