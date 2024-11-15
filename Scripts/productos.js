@@ -1,22 +1,71 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    const productosContainer = document.getElementById("productos")
-    const accesoriosContainer = document.getElementById("accesorios")
+    const productosContainer = document.getElementById("productos");
+    const accesoriosContainer = document.getElementById("accesorios");
     let listaJuegos = [];
     let listaPerrifericos = [];
+    let inicioJuegos = 0, finJuegos = 6;
+    let inicioPerifericos = 0, finPerifericos = 6;
 
     try {
         const response = await fetch("http://localhost:3000/juego");
         const productos = await response.json();
+
         productos.forEach(producto => {
-            if (producto.tipo === 'juego') {
-                listaJuegos.push(producto)
+            if (producto.tipo === "juego") {
+                listaJuegos.push(producto);
             } else {
-                listaPerrifericos.push(producto)
+                listaPerrifericos.push(producto);
             }
         });
 
-        mostrarProductos(listaJuegos, productosContainer)
-        mostrarProductos(listaPerrifericos, accesoriosContainer)
+        const btnAnteriorJuegos = document.getElementById("back-page");
+        const btnSiguienteJuegos = document.getElementById("next-page");
+        const btnAnteriorPerifericos = document.getElementById("back-page2");
+        const btnSiguientePerifericos = document.getElementById("next-page2");
+
+        btnSiguienteJuegos.addEventListener("click", () => {
+            if (finJuegos < listaJuegos.length) {
+                inicioJuegos += 6;
+                finJuegos += 6;
+                actualizar(listaJuegos, productosContainer, inicioJuegos, finJuegos);
+            }
+        });
+
+        btnAnteriorJuegos.addEventListener("click", () => {
+            if (inicioJuegos > 0) {
+                inicioJuegos -= 6;
+                finJuegos -= 6;
+                actualizar(listaJuegos, productosContainer, inicioJuegos, finJuegos);
+            }
+        });
+
+        btnSiguientePerifericos.addEventListener("click", () => {
+            if (finPerifericos < listaPerrifericos.length) {
+                inicioPerifericos += 6;
+                finPerifericos += 6;
+                actualizar(listaPerrifericos, accesoriosContainer, inicioPerifericos, finPerifericos);
+            }
+        });
+
+        btnAnteriorPerifericos.addEventListener("click", () => {
+            if (inicioPerifericos > 0) {
+                inicioPerifericos -= 6;
+                finPerifericos -= 6;
+                actualizar(listaPerrifericos, accesoriosContainer, inicioPerifericos, finPerifericos);
+            }
+        });
+
+
+        function actualizar(lista, container, inicio, fin) {
+            container.innerHTML = "";
+            const productosAMostrar = lista.slice(inicio, fin);
+            mostrarProductos(productosAMostrar, container);
+        }
+
+
+        actualizar(listaJuegos, productosContainer, inicioJuegos, finJuegos);
+        actualizar(listaPerrifericos, accesoriosContainer, inicioPerifericos, finPerifericos);
+
     } catch (error) {
         console.error("Error al cargar los datos:", error);
     }
