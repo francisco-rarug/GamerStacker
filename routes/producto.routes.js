@@ -18,6 +18,7 @@ router.post("/", upload.single("imagen"), async (req, res) => {
     const precio = req.body.precio;
     const imagen = req.file ? `/uploads/${req.file.filename}` : null;
     const tipo = req.body.tipo;
+    const activo = req.body.activo;
 
     const juego = {
         nombre,
@@ -25,6 +26,7 @@ router.post("/", upload.single("imagen"), async (req, res) => {
         precio,
         imagen,
         tipo,
+        activo: false,
     };
     const resultado = await JuegoSequelize.create(juego);
 
@@ -53,6 +55,7 @@ router.put("/:id", upload.single("imagen"), async (req, res) => {
     const precio = req.body.precio;
     const imagen = req.file ? `/uploads/${req.file.filename}` : null;
     const tipo = req.body.tipo;
+    const activo = req.body.activo
 
     const juego = {
         nombre,
@@ -60,6 +63,7 @@ router.put("/:id", upload.single("imagen"), async (req, res) => {
         precio,
         imagen,
         tipo,
+        activo: false,
     };
     const resultado = await JuegoSequelize.update(
 

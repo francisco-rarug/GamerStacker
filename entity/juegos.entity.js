@@ -28,6 +28,10 @@ const AutoSequelize = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false,
         },
+        activo: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
 
     },
     {
