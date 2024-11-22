@@ -9,8 +9,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const autocompletarBtn = document.getElementById("autocompletar");
 
     autocompletarBtn.onclick = () => {
-        const usuarioHardcoded = "fran";
-        const passwordHardcoded = "123";
+        const usuarioHardcoded = "thiago123";
+        const passwordHardcoded = "thiago123";
 
         usuarioElemento.value = usuarioHardcoded;
         passwordElemento.value = passwordHardcoded;

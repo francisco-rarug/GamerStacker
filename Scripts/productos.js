@@ -11,10 +11,13 @@ document.addEventListener("DOMContentLoaded", async function () {
         const productos = await response.json();
 
         productos.forEach(producto => {
-            if (producto.tipo === "juego") {
-                listaJuegos.push(producto);
-            } else {
-                listaPerrifericos.push(producto);
+            if (producto.activo === true) {
+
+                if (producto.tipo === "juego") {
+                    listaJuegos.push(producto);
+                } else {
+                    listaPerrifericos.push(producto);
+                }
             }
         });
 

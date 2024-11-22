@@ -78,6 +78,31 @@ document.addEventListener("DOMContentLoaded", async function () {
             eliminar.textContent = 'Eliminar';
             divcontent.appendChild(eliminar);
 
+            if (producto.activo === false) {
+                const reactivar = document.createElement('button');
+                reactivar.className = 'btn-editar';
+                reactivar.textContent = 'Reactivar';
+                divcontent.appendChild(reactivar);
+
+
+                reactivar.addEventListener('click', async () => {
+
+                    try {
+                        const pedido = await fetch(`http://localhost:3000/juego/activar/${producto.id}`, {
+                            method: 'PUT',
+                        });
+
+                        reactivar.remove();
+                        location.reload();
+
+
+
+                    } catch (error) {
+                        console.error('Error al reactivar el producto:', error);
+                    }
+                })
+            }
+
 
             div.appendChild(divcontent);
             container.appendChild(div);

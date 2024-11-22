@@ -26,7 +26,7 @@ router.post("/", upload.single("imagen"), async (req, res) => {
         precio,
         imagen,
         tipo,
-        activo: false,
+        activo,
     };
     const resultado = await JuegoSequelize.create(juego);
 
@@ -42,11 +42,14 @@ router.get("/", async (req, res) => {
 });
 
 router.delete("/:id", async (req, res) => {
-    const resultado = JuegoSequelize.destroy({
-        where: {
-            id: req.params.id,
-        },
-    });
+    const resultado = await JuegoSequelize.update(
+        { activo: false },
+        {
+            where: {
+                id: req.params.id,
+            },
+        }
+    );
     res.send(resultado);
 });
 router.put("/:id", upload.single("imagen"), async (req, res) => {
@@ -63,7 +66,7 @@ router.put("/:id", upload.single("imagen"), async (req, res) => {
         precio,
         imagen,
         tipo,
-        activo: false,
+        activo,
     };
     const resultado = await JuegoSequelize.update(
 
@@ -77,5 +80,14 @@ router.put("/:id", upload.single("imagen"), async (req, res) => {
     res.send(resultado);
 });
 
-
+router.put("/activar/:id", async (req, res) => {
+    const resultado = await JuegoSequelize.update(
+        { activo: true },
+        {
+            where: {
+                id: req.params.id,
+            },
+        }
+    );
+});
 module.exports = router;
