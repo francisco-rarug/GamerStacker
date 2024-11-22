@@ -86,21 +86,33 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
                 reactivar.addEventListener('click', async () => {
-
                     try {
                         const pedido = await fetch(`http://localhost:3000/juego/activar/${producto.id}`, {
                             method: 'PUT',
                         });
+                
+                        if (pedido.ok) {
+                            producto.activo = true;
 
-                        reactivar.remove();
-                        location.reload();
+                            reactivar.remove();
 
-
-
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Producto reactivado correctamente',
+                                timer: 1500,
+                                showConfirmButton: false,
+                                customClass: {
+                                    popup: 'dark-popup'
+                                }
+                            });
+                        } else {
+                            console.error('Error al reactivar el producto:', await pedido.text());
+                        }
                     } catch (error) {
                         console.error('Error al reactivar el producto:', error);
                     }
-                })
+                });
+                
             }
 
 

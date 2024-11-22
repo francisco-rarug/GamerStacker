@@ -81,13 +81,21 @@ router.put("/:id", upload.single("imagen"), async (req, res) => {
 });
 
 router.put("/activar/:id", async (req, res) => {
-    const resultado = await JuegoSequelize.update(
-        { activo: true },
-        {
-            where: {
-                id: req.params.id,
-            },
-        }
-    );
+    try {
+        const resultado = await JuegoSequelize.update(
+            { activo: true },
+            {
+                where: {
+                    id: req.params.id,
+                },
+            }
+        );
+
+        res.send(resultado)
+
+    } catch (error) {
+        console.error("Error al activar el producto:", error);
+    }
 });
+
 module.exports = router;
