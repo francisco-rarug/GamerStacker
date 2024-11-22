@@ -101,31 +101,38 @@ function cargarProductosFinalizar() {
 
 function generarPDFTicket() {
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+    
+    const usuario = JSON.parse(localStorage.getItem('usuarios'))[0] || {};
+    const nombreUsuario = usuario.nombre
+    const apellidoUsuario = usuario.apellido 
+    
+    const { jsPDF } = window.jspdf;
+    let doc = new jsPDF();
 
-    const { jsPDF } = window.jspdf
-    let doc = new jsPDF()
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    doc.text('Ticket de Compra GamerStacker', 10, 10);
 
-    doc.setFontSize(16)
-    doc.setFont('helvetica', 'bold')
-    doc.text('Ticket de Compra', 10, 10)
 
-    doc.setFontSize(12)
-    let posicionY = 20
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Comprador: ${nombreUsuario} ${apellidoUsuario}`, 10, 20);
+
+    let posicionY = 30;
 
     productosCarrito.forEach(producto => {
-        doc.text(`Producto: ${producto.nombre}`, 10, posicionY)
-        doc.text(`Cantidad: ${producto.cantidad}`, 10, posicionY + 5)
-        doc.text(`Precio: ${formatCurrency(producto.precioOriginal)}`, 10, posicionY + 10)
-        posicionY += 20
-    })
+        doc.text(`Producto: ${producto.nombre}`, 10, posicionY);
+        doc.text(`Cantidad: ${producto.cantidad}`, 10, posicionY + 5);
+        doc.text(`Precio por unidad: ${formatCurrency(producto.precioOriginal)}`, 10, posicionY + 10);
+        posicionY += 20;
+    });
 
-    const total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0)
-    doc.text('-------------------------', 10, posicionY)
-    doc.text(`Total: ${formatCurrency(total)}`, 10, posicionY + 10)
+    const total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0);
+    doc.text('-------------------------', 10, posicionY);
+    doc.text(`Total: ${formatCurrency(total)}`, 10, posicionY + 10);
 
-    doc.save('ticket_compra.pdf')
+    doc.save('ticket_compra.pdf');
 }
-
 
 async function cargarVenta() {
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
@@ -179,7 +186,7 @@ async function cargarVenta() {
             });
 
             const respuesta = await pedido.json();
-            console.log(respuesta); // Para verificar la respuesta
+            console.log(respuesta); 
         } catch (error) {
             console.error("Error en la solicitud de guardar venta:", error);
         }

@@ -3,6 +3,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const passwordElemento = document.getElementById("password");
 
     const loginBtn = document.getElementById("login");
+
+
+    const usuarioElemento = document.getElementById("Usuario");
+    const autocompletarBtn = document.getElementById("autocompletar");
+
+    autocompletarBtn.onclick = () => {
+        const usuarioHardcoded = "fran";
+        const passwordHardcoded = "123";
+
+        usuarioElemento.value = usuarioHardcoded;
+        passwordElemento.value = passwordHardcoded;
+
+    };
+
     loginBtn.addEventListener("click", async () => {
         // try {
         //     const datos = {
@@ -38,15 +52,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         icon: "error",
                         title: "Usuario o contraseña Incorrecta!",
                         text: "Vuelva a intentar",
-                        timer: 2000, 
+                        timer: 2000,
                         timerProgressBar: true,
                     });
-                    
+
                 }
             });
 
         } catch (error) {
-            
+
             console.error("Error al cargar los datos:", error);
         }
     });
