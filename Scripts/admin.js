@@ -83,6 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 reactivar.className = 'btn-editar';
                 reactivar.textContent = 'Reactivar';
                 divcontent.appendChild(reactivar);
+                eliminar.style.display="none"
 
 
                 reactivar.addEventListener('click', async () => {
@@ -93,7 +94,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 
                         if (pedido.ok) {
                             producto.activo = true;
-
+                            eliminar.style.display="inline"
                             reactivar.remove();
 
                             Swal.fire({
