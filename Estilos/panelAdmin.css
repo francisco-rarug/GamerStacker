@@ -123,7 +123,7 @@ body {
     box-shadow: 4px 8px 10px -3px rgba(0, 0, 0, 0.356);
     transition: all 250ms;
     margin: 0 auto;
-    margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .container-btn-file input[type="file"] {
