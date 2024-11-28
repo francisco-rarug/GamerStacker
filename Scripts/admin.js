@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                 reactivar.className = 'btn-editar';
                 reactivar.textContent = 'Reactivar';
                 divcontent.appendChild(reactivar);
-                eliminar.style.display="none"
+                eliminar.style.display = "none"
 
 
                 reactivar.addEventListener('click', async () => {
@@ -91,10 +91,10 @@ document.addEventListener("DOMContentLoaded", async function () {
                         const pedido = await fetch(`http://localhost:3000/juego/activar/${producto.id}`, {
                             method: 'PUT',
                         });
-                
+
                         if (pedido.ok) {
                             producto.activo = true;
-                            eliminar.style.display="inline"
+                            eliminar.style.display = "inline"
                             reactivar.remove();
 
                             Swal.fire({
@@ -113,7 +113,7 @@ document.addEventListener("DOMContentLoaded", async function () {
                         console.error('Error al reactivar el producto:', error);
                     }
                 });
-                
+
             }
 
 
@@ -249,6 +249,33 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("imagenJuego").value = '';
         document.getElementById("tipoJuego").value = 'juego';
     }
+
+
+
+    const formAgregarExcel = document.getElementById("guardarJuegoExcel");
+
+    formAgregarExcel.addEventListener("click", async () => {
+        try {
+            const responseExcel = await fetch("http://localhost:3000/excel", {
+                metho: "GET",
+                headers: {
+                    "Content-Type": "application/vnd.ms-excel"
+                }
+            });
+            const blob = await require.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "Ventas.txt"
+            a.click();
+
+        } catch (error) {
+            console.error('Hubo un error:', error);
+        }
+    });
+
+
+
 });
 
 

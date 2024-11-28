@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+
 const path = require("path");
 require("dotenv").config();
 
@@ -16,13 +17,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 
-let carritoGlobal = []; 
+let carritoGlobal = [];
 
 app.post('/guardar-carrito', (req, res) => {
     try {
-        carritoGlobal = req.body.carrito; 
+        carritoGlobal = req.body.carrito;
         res.sendStatus(200);
     } catch (error) {
         console.error("Error al guardar el carrito:", error);
@@ -41,18 +42,19 @@ app.get('/ticket', (req, res) => {
 
 const sequelize = require("./db/sequelize");
 const juegoSequelize = require("./entity/juegos.entity");
-const juegosRoutes = require("./routes/producto.routes");
-
 const AdminSequelize = require("./entity/admin.entity");
-const AdminRoutes = require("./routes/admin.routes");
-
 const VentaSequelize = require("./entity/ventas.entity");
+
+const juegosRoutes = require("./routes/producto.routes");
+const AdminRoutes = require("./routes/admin.routes");
 const VentaRoutes = require("./routes/ventas.routes");
+const ExcelRoutes = require("./routes/excel.routes");
 
 // Rutas
 app.use("/contrasenia", AdminRoutes);
 app.use("/venta", VentaRoutes);
 app.use("/juego", juegosRoutes);
+app.use("/excel", ExcelRoutes);
 
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
