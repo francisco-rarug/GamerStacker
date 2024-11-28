@@ -194,37 +194,33 @@ async function cargarVenta() {
 }
 
 
-const finalizarBtn = document.getElementById("finalizar")
+const finalizarBtn = document.getElementById("finalizar");
 finalizarBtn.addEventListener("click", () => {
 
-    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
     if (productosCarrito.length === 0) {
         Swal.fire({
             icon: 'warning',
-            title: 'Atencion!',
-            text: 'Por favor, agrega productos al carrito antes de finalizar la compra!',
-            confirmButtonText: 'Aceptar',
-            customClass: {
-                popup: 'dark-popup'
-            }
-
-        })
-        return
+            title: '¡Atención!',
+            text: 'Por favor, agrega productos al carrito antes de finalizar la compra.',
+            confirmButtonText: 'Aceptar'
+        });
+        return;
     }
 
-    cargarProductosFinalizar()
-    cargarVenta()
-    const modalFinalizar = document.getElementById("modal-finalizar")
-    const modalContent = modalFinalizar.querySelector('.modal-content')
+    fetch('http://localhost:3000/guardar-carrito', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ carrito: productosCarrito })
+    }).then(() => {
+        window.location.href = 'http://localhost:3000/ticket';
+    }).catch(error => {
+        console.error('Error al guardar el carrito:', error);
+    });
+});
 
-    modalFinalizar.style.display = "block"
-    document.body.classList.add("no-scroll")
 
-    setTimeout(() => {
-        modalContent.classList.add("show")
-    }, 10)
-})
 
 const descargarBtn = document.getElementById("descargar-ticket")
 descargarBtn.addEventListener("click", () => {

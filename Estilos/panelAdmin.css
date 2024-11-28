@@ -106,6 +106,54 @@ body {
     padding: 20px;
 }
 
+
+/* From Uiverse.io by omar49511 */
+.container-btn-file {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    background-color: #307750;
+    color: #fff;
+    border-style: none;
+    padding: 1em 2em;
+    border-radius: 0.5em;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 4px 8px 10px -3px rgba(0, 0, 0, 0.356);
+    transition: all 250ms;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+.container-btn-file input[type="file"] {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.container-btn-file>svg {
+    margin-right: 1em;
+}
+
+.container-btn-file::before {
+    content: "";
+    position: absolute;
+    height: 100%;
+    width: 0;
+    border-radius: 0.5em;
+    background-color: #469b61;
+    z-index: -1;
+    transition: all 350ms;
+}
+
+.container-btn-file:hover::before {
+    width: 100%;
+}
+
+
 .productos {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -163,11 +211,11 @@ body {
     margin: 10px 0;
 }
 
-p{
+p {
     font-size: 1em;
 }
 
-.data-precio{
+.data-precio {
     font-size: 1.5em;
 }
 
@@ -215,18 +263,18 @@ button.d-flex {
     margin-top: 20px;
 }
 
-button.d-flex:hover{
+button.d-flex:hover {
     background-color: #6c2eaf;
     transition: 0.3s ease-in-out;
 }
 
 button.d-flex i {
-    color: floralwhite;  
+    color: floralwhite;
 }
 
 button.d-flex span {
-    color: floralwhite; 
-}  
+    color: floralwhite;
+}
 
 .card::after {
     content: "";
@@ -294,31 +342,31 @@ button.d-flex span {
     }
 
     .btn-editar {
-        width: 50%; 
+        width: 50%;
         font-size: 0.5rem;
     }
 
     .btn-eliminar {
-        width: 50%; 
+        width: 50%;
         font-size: 0.5rem;
     }
 
     .content h2 {
-        font-size: 1rem; 
+        font-size: 1rem;
     }
 
     .content p {
         font-size: 1rem;
     }
 
-    .descripcion{
+    .descripcion {
         display: none;
     }
 
     .card:hover::after {
         display: none;
     }
-    
+
 }
 
 /* Modo oscuro */
@@ -331,30 +379,30 @@ body.dark-mode {
     background: #15191d;
 }
 
-body.dark-mode .barra-divisora{
+body.dark-mode .barra-divisora {
     background-color: #212529;
 }
 
-body.dark-mode .sub-titulo{
+body.dark-mode .sub-titulo {
     color: #ffffff;
 }
 
-body.dark-mode .pie-pagina{
-    background: rgb(21,50,89);
-    background: radial-gradient(circle, rgba(21,50,89,1) 0%, rgba(8,8,8,1) 17%, rgba(11,17,26,1) 78%);
+body.dark-mode .pie-pagina {
+    background: rgb(21, 50, 89);
+    background: radial-gradient(circle, rgba(21, 50, 89, 1) 0%, rgba(8, 8, 8, 1) 17%, rgba(11, 17, 26, 1) 78%);
 }
 
 
 
-body.dark-mode .modal-title{
+body.dark-mode .modal-title {
     color: #ffffff;
 }
 
-body.dark-mode .form-label{
+body.dark-mode .form-label {
     color: #ffffff;
 }
 
-body.dark-mode small{
+body.dark-mode small {
     color: #ffffff;
 }
 
@@ -371,8 +419,8 @@ body.dark-mode .modal-content {
 }
 
 body.dark-mode .buttonTitulo {
-    --text-stroke-color: #b3b3b3; 
-    --animation-color: #c50ba0; 
+    --text-stroke-color: #b3b3b3;
+    --animation-color: #c50ba0;
 }
 
 body.dark-mode .buttonTitulo .hover-text {
@@ -384,23 +432,23 @@ body.dark-mode .buttonTitulo:hover .hover-text {
     filter: drop-shadow(0 0 23px var(--animation-color));
 }
 
-body.dark-mode .dark-popup{
+body.dark-mode .dark-popup {
     background-color: #121212;
     color: white;
 }
 
-body.dark-mode .btn-editar{
+body.dark-mode .btn-editar {
     background-color: #1b2838;
 }
 
-body.dark-mode .btn-editar:hover{
+body.dark-mode .btn-editar:hover {
     background-color: #c50ba0;
 }
 
-body.dark-mode .btn-eliminar{
+body.dark-mode .btn-eliminar {
     background-color: #1b2838;
 }
 
-body.dark-mode .btn-eliminar:hover{
+body.dark-mode .btn-eliminar:hover {
     background-color: #c50b0b;
 }

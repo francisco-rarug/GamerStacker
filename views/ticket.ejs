@@ -1,203 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito y Finalizar Compra</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script> <!-- Para generar PDF -->
-    <link rel="stylesheet" href="./carrito.css"> <!-- Tu archivo CSS -->
+    <title>Ticket de Compra</title>
+
+    <style>
+        body {
+            background-color: #f4f4f9;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2.5rem;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        li {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 1.2rem;
+        }
+
+        .total {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        #descargar-ticket {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            font-size: 1.2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #descargar-ticket:hover {
+            background-color: #218838;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #555;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Carrito de Compras</h1>
 
-    <ul id="productos-lista"></ul>
+    <div class="container">
+        <h1>Resumen de tu Compra</h1>
+        <ul>
+            <% carrito.forEach((producto) => { %>
+                <li>
+                    <strong><%= producto.nombre %></strong> - 
+                    <%= new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(producto.precio) %> 
+                    (x<%= producto.cantidad %>)
+                </li>
+            <% }) %>
+        </ul>
+        <hr>
+        <p class="total">Total: <%= new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(total) %></p>
 
-    <button id="finalizar">Finalizar Compra</button>
-
-    <div id="modal-finalizar" class="modal">
-        <div class="modal-content">
-            <span id="close-finalizar" class="close">&times;</span>
-            <h2>Resumen de Compra</h2>
-            <ul id="lista-productos-finalizar"></ul>
-            <button id="descargar-ticket">Descargar Ticket</button>
-        </div>
+        <button id="descargar-ticket" class="btn btn-success">Descargar Ticket</button>
     </div>
 
+    <div id="carrito-data" data-carrito='<%= JSON.stringify(carrito) %>' data-total='<%= total %>'></div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script>
-        // Reutilizamos las funciones que definiste en tu archivo JS.
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('es-AR', {
-                style: 'currency',
-                currency: 'ARS',
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            }).format(amount);
-        }
+        document.addEventListener('DOMContentLoaded', function () {
+            const carrito = JSON.parse(document.getElementById('carrito-data').getAttribute('data-carrito'));
+            const total = parseFloat(document.getElementById('carrito-data').getAttribute('data-total'));
 
-        function cargarCarrito() {
-            let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-            const listaProductos = document.getElementById('productos-lista');
-            listaProductos.innerHTML = '';
+            console.log("Carrito:", carrito);  
+            console.log("Total:", total);  
 
-            let total = 0;
+            document.getElementById('descargar-ticket').addEventListener('click', () => {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                doc.setFontSize(16);
+                doc.text('Ticket de Compra GamerStacker', 10, 10);
 
-            if (productosCarrito.length === 0) {
-                listaProductos.innerHTML = '<li>El carrito está vacío</li>';
-            } else {
-                productosCarrito.forEach((producto, index) => {
-                    const li = document.createElement('li');
-                    total += producto.precio;
+                let posicionY = 20;
 
-                    li.innerHTML = `
-                        <img src="${producto.img}" alt="${producto.nombre}" width="50" height="50"> 
-                        <strong>${producto.nombre}</strong> - ${formatCurrency(producto.precio)} (x${producto.cantidad})
-                        <button class="bin-button" data-index="${index}">Eliminar</button>
-                    `;
-                    listaProductos.appendChild(li);
+                if (carrito.length === 0) {
+                    alert("El carrito está vacío. No hay productos para mostrar.");
+                    return;
+                }
+
+                carrito.forEach((producto) => {
+                    doc.text('Producto: ' + producto.nombre, 10, posicionY);
+                    doc.text('Cantidad: ' + producto.cantidad, 10, posicionY + 5);
+                    doc.text('Precio por unidad: ' + new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS' }).format(producto.precio), 10, posicionY + 10);
+                    posicionY += 20;
                 });
 
-                const lineaHorizontal = document.createElement('hr');
-                const totalElement = document.createElement('p');
-                totalElement.innerHTML = `<strong class="precio">Total: ${formatCurrency(total)}</strong>`;
-
-                listaProductos.appendChild(lineaHorizontal);
-                listaProductos.appendChild(totalElement);
-            }
-
-            agregarEventosEliminar();
-        }
-
-        function agregarEventosEliminar() {
-            document.querySelectorAll('.bin-button').forEach((boton) => {
-                boton.addEventListener('click', (e) => {
-                    const index = e.target.closest('.bin-button').dataset.index;
-                    eliminarProducto(index);
-                });
+                doc.text('-------------------------', 10, posicionY);
+                doc.text('Total: ' + new Intl.NumberFormat("es-AR", { style: "currency", currency: "ARS" }).format(total), 10, posicionY + 10);
+                doc.save('ticket_compra.pdf');
             });
-        }
-
-        function eliminarProducto(index) {
-            let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-            if (productosCarrito[index].cantidad > 1) {
-                productosCarrito[index].cantidad -= 1;
-                productosCarrito[index].precio -= productosCarrito[index].precioOriginal;
-            } else {
-                productosCarrito.splice(index, 1);
-            }
-
-            localStorage.setItem('carrito', JSON.stringify(productosCarrito));
-            cargarCarrito();
-        }
-
-        function cargarProductosFinalizar() {
-            let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-            const listaProductosFinalizar = document.getElementById('lista-productos-finalizar');
-            listaProductosFinalizar.innerHTML = '';
-
-            let total = 0;
-
-            productosCarrito.forEach(producto => {
-                const li = document.createElement('li');
-                total += producto.precio;
-                li.innerHTML = `<strong>${producto.nombre}</strong> - ${formatCurrency(producto.precio)} (x${producto.cantidad})`;
-                listaProductosFinalizar.appendChild(li);
-            });
-
-            const lineaHorizontal = document.createElement('hr');
-            const totalElement = document.createElement('p');
-            totalElement.innerHTML = `<strong>Total: ${formatCurrency(total)}</strong>`;
-
-            listaProductosFinalizar.appendChild(lineaHorizontal);
-            listaProductosFinalizar.appendChild(totalElement);
-        }
-
-        function generarPDFTicket() {
-            let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-            const { jsPDF } = window.jspdf;
-            let doc = new jsPDF();
-
-            doc.setFontSize(16);
-            doc.setFont('helvetica', 'bold');
-            doc.text('Ticket de Compra', 10, 10);
-
-            doc.setFontSize(12);
-            let posicionY = 20;
-
-            productosCarrito.forEach(producto => {
-                doc.text(`Producto: ${producto.nombre}`, 10, posicionY);
-                doc.text(`Cantidad: ${producto.cantidad}`, 10, posicionY + 5);
-                doc.text(`Precio: ${formatCurrency(producto.precioOriginal)}`, 10, posicionY + 10);
-                posicionY += 20;
-            });
-
-            const total = productosCarrito.reduce((acc, producto) => acc + producto.precio, 0);
-            doc.text('-------------------------', 10, posicionY);
-            doc.text(`Total: ${formatCurrency(total)}`, 10, posicionY + 10);
-
-            doc.save('ticket_compra.pdf');
-        }
-
-        const finalizarBtn = document.getElementById("finalizar");
-        finalizarBtn.addEventListener("click", () => {
-            let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || [];
-
-            if (productosCarrito.length === 0) {
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Atención',
-                    text: 'Por favor, agrega productos al carrito antes de finalizar la compra.',
-                    confirmButtonText: 'Aceptar',
-                });
-                return;
-            }
-
-            cargarProductosFinalizar();
-
-            const modalFinalizar = document.getElementById("modal-finalizar");
-            const modalContent = modalFinalizar.querySelector('.modal-content');
-
-            modalFinalizar.style.display = "block";
-            document.body.classList.add("no-scroll");
-
-            setTimeout(() => {
-                modalContent.classList.add("show");
-            }, 10);
         });
-
-        const descargarBtn = document.getElementById("descargar-ticket");
-        descargarBtn.addEventListener("click", () => {
-            generarPDFTicket();
-        });
-
-        const closeModal = document.getElementById("close-finalizar");
-        closeModal.addEventListener("click", () => {
-            const modalFinalizar = document.getElementById("modal-finalizar");
-            const modalContent = modalFinalizar.querySelector('.modal-content');
-
-            modalContent.classList.remove("show");
-            setTimeout(() => {
-                modalFinalizar.style.display = "none";
-                document.body.classList.remove("no-scroll");
-            }, 300);
-        });
-
-        window.addEventListener("click", (event) => {
-            const modalFinalizar = document.getElementById("modal-finalizar");
-            if (event.target === modalFinalizar) {
-                const modalContent = modalFinalizar.querySelector('.modal-content');
-                modalContent.classList.remove("show");
-                setTimeout(() => {
-                    modalFinalizar.style.display = "none";
-                    document.body.classList.remove("no-scroll");
-                }, 300);
-            }
-        });
-
-        // Cargar el carrito al iniciar la página
-        cargarCarrito();
     </script>
 </body>
+
 </html>
