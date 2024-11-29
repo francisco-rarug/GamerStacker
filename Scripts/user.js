@@ -17,18 +17,33 @@ function middleware(next) {
     obtenerValoresActuales();
 
     if (!nombre.trim() || !apellido.trim()) {
-        alert("Por favor, complete todos los campos antes de continuar.");
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos vacíos',
+            text: 'Por favor, complete todos los campos antes de continuar.',
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
         return;
     }
 
     const soloLetras = /^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]+$/;
     if (!soloLetras.test(nombre) || !soloLetras.test(apellido)) {
-        alert("Los campos solo deben contener letras y espacios.");
+        Swal.fire({
+            icon: 'error',
+            title: 'Entrada inválida',
+            text: 'Los campos solo deben contener letras y espacios.',
+            timer: 2000,
+            timerProgressBar: true,
+            showConfirmButton: false
+        });
         return;
     }
 
     next();
 }
+
 
 function obtenerValoresActuales() {
     nombre = nombreElemento.value;
