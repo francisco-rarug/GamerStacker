@@ -216,18 +216,23 @@ body {
 
 .btnEliminar {
     background-color: #f3f7fe !important;
-    color: #3b82f6 !important;
+    color: #a1a1a1 !important;
     border: none !important;
     cursor: pointer !important;
     border-radius: 8px !important;
-    width: 100px !important;
+    width: 40px !important;
     height: 45px !important;
     transition: 0.3s !important;
+    margin-left: 15px;
+}
+
+.btnEliminar span {
+    font-size: 30px;
 }
 
 .btnEliminar:hover {
-    background-color: #3b82f6 !important;
-    box-shadow: 0 0 0 5px #3b83f65f !important;
+    background-color: #f17979 !important;
+    box-shadow: 0 0 0 5px #ffa9a95f !important;
     color: #fff !important;
 }
 

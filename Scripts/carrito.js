@@ -38,7 +38,7 @@ function cargarCarrito() {
                         <path d="M21 6V29" stroke="white" stroke-width="4"></path>
                     </svg>
                 </button>
-                <button class="btnEliminar" data-index="${index}">--</button>
+                <button class="btnEliminar" data-index="${index}"><span>-</span></button>
             `
 
             listaProductos.appendChild(li)
