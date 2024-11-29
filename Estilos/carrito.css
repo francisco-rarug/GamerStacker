@@ -214,6 +214,22 @@ body {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+.btnEliminar {
+    background-color: #f3f7fe !important;
+    color: #3b82f6 !important;
+    border: none !important;
+    cursor: pointer !important;
+    border-radius: 8px !important;
+    width: 100px !important;
+    height: 45px !important;
+    transition: 0.3s !important;
+}
+
+.btnEliminar:hover {
+    background-color: #3b82f6 !important;
+    box-shadow: 0 0 0 5px #3b83f65f !important;
+    color: #fff !important;
+}
 
 .modal.show {
     display: block;
@@ -494,48 +510,48 @@ body.dark-mode {
     background: #15191d;
 }
 
-body.dark-mode .barra-divisora{
+body.dark-mode .barra-divisora {
     background-color: #212529;
 }
 
-body.dark-mode .sub-titulo{
+body.dark-mode .sub-titulo {
     color: #ffffff;
 }
 
-body.dark-mode .pie-pagina{
-    background: rgb(21,50,89);
-    background: radial-gradient(circle, rgba(21,50,89,1) 0%, rgba(8,8,8,1) 17%, rgba(11,17,26,1) 78%);
+body.dark-mode .pie-pagina {
+    background: rgb(21, 50, 89);
+    background: radial-gradient(circle, rgba(21, 50, 89, 1) 0%, rgba(8, 8, 8, 1) 17%, rgba(11, 17, 26, 1) 78%);
 }
 
-body.dark-mode .redes-sociales{
+body.dark-mode .redes-sociales {
     color: #ffffff;
 }
 
-body.dark-mode h2{
+body.dark-mode h2 {
     color: #ffffff;
 }
 
-body.dark-mode .titulo{
+body.dark-mode .titulo {
     color: #000000;
 }
 
-body.dark-mode .precio{
+body.dark-mode .precio {
     color: #e96666;
 }
 
-body.dark-mode p{
+body.dark-mode p {
     color: #ffffff;
 }
 
-body.dark-mode small{
+body.dark-mode small {
     color: #ffffff;
 }
 
-body.dark-mode strong{
+body.dark-mode strong {
     color: #000000;
 }
 
-body.dark-mode li{
+body.dark-mode li {
     color: #000000;
 }
 
@@ -556,14 +572,14 @@ body.dark-mode .btn-finalizar:before {
     background: linear-gradient(to right, transparent 1%, rgba(128, 128, 128, 0.1) 40%, rgba(128, 128, 128, 0.1) 60%, transparent 100%);
 }
 
-body.dark-mode .contenedor{
+body.dark-mode .contenedor {
     color: #ffffff;
     background-color: #212529;
 }
 
 body.dark-mode .buttonTitulo {
-    --text-stroke-color: #b3b3b3; 
-    --animation-color: #c50ba0; 
+    --text-stroke-color: #b3b3b3;
+    --animation-color: #c50ba0;
 }
 
 body.dark-mode .buttonTitulo .hover-text {
@@ -575,7 +591,7 @@ body.dark-mode .buttonTitulo:hover .hover-text {
     filter: drop-shadow(0 0 23px var(--animation-color));
 }
 
-body.dark-mode .dark-popup{
+body.dark-mode .dark-popup {
     background-color: #121212;
     color: white;
 }

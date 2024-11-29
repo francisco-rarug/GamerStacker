@@ -2,14 +2,10 @@ const express = require("express");
 const XLSX = require("xlsx");
 const router = express.Router();
 
-router.get("/", async (req, res) => {
+router.post("/", async (req, res) => {
     console.log("Solicitando descarga de Excel");
 
-    const data = [
-        { nombre: "Agus", apellido: "F", edad: 58 },
-        { nombre: "Otro", apellido: "otro", edad: 2 },
-        { nombre: "Uno más", apellido: "Otro", altura: 99 },
-    ];
+    const data = req.body;
 
     const libro = XLSX.utils.book_new();
     const hoja = XLSX.utils.json_to_sheet(data);
@@ -20,7 +16,6 @@ router.get("/", async (req, res) => {
 
     res.type('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     res.attachment('Ventas.xlsx');
-
     res.send(buffer);
 });
 

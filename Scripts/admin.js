@@ -251,28 +251,44 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
 
-
     const formAgregarExcel = document.getElementById("guardarJuegoExcel");
 
     formAgregarExcel.addEventListener("click", async () => {
         try {
+            const responseVentas = await fetch("http://localhost:3000/venta");
+            if (!responseVentas.ok) {
+                throw new Error("No se pudieron obtener las ventas.");
+            }
+            const ventas = await responseVentas.json();
+
             const responseExcel = await fetch("http://localhost:3000/excel", {
-                metho: "GET",
+                method: "POST",
                 headers: {
-                    "Content-Type": "application/vnd.ms-excel"
-                }
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(ventas)
             });
-            const blob = await require.blob();
+
+            if (!responseExcel.ok) {
+                throw new Error("No se pudo descargar el archivo.");
+            }
+
+            const blob = await responseExcel.blob();
             const url = window.URL.createObjectURL(blob);
+
             const a = document.createElement("a");
             a.href = url;
-            a.download = "Ventas.txt"
+            a.download = "Ventas.xlsx";
+            document.body.appendChild(a);
             a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
 
         } catch (error) {
-            console.error('Hubo un error:', error);
+            console.error("Hubo un error:", error);
         }
     });
+
 
 
 

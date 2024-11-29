@@ -38,6 +38,7 @@ function cargarCarrito() {
                         <path d="M21 6V29" stroke="white" stroke-width="4"></path>
                     </svg>
                 </button>
+                <button class="btnEliminar" data-index="${index}">--</button>
             `
 
             listaProductos.appendChild(li)
@@ -52,8 +53,31 @@ function cargarCarrito() {
     }
 
     agregarEventosEliminar()
+    agregarEventosEliminarTodo()
+}
+function agregarEventosEliminarTodo() {
+    document.querySelectorAll('.btnEliminar').forEach((boton) => {
+        boton.addEventListener('click', (e) => {
+            const index = e.target.dataset.index;
+            eliminarProductoCompleto(index);
+        });
+    });
 }
 
+function eliminarProductoCompleto(index) {
+    let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
+
+    if (productosCarrito[index].cantidad > 1) {
+        productosCarrito[index].cantidad -= 1
+        productosCarrito[index].precio -= productosCarrito[index].precioOriginal
+    } else {
+        productosCarrito.splice(index, 1)
+    }
+
+    localStorage.setItem('carrito', JSON.stringify(productosCarrito))
+    cargarCarrito()
+
+}
 function agregarEventosEliminar() {
     document.querySelectorAll('.bin-button').forEach((boton) => {
         boton.addEventListener('click', (e) => {
@@ -66,12 +90,7 @@ function agregarEventosEliminar() {
 function eliminarProducto(index) {
     let productosCarrito = JSON.parse(localStorage.getItem('carrito')) || []
 
-    if (productosCarrito[index].cantidad > 1) {
-        productosCarrito[index].cantidad -= 1
-        productosCarrito[index].precio -= productosCarrito[index].precioOriginal
-    } else {
-        productosCarrito.splice(index, 1)
-    }
+    productosCarrito.splice(index, 1)
 
     localStorage.setItem('carrito', JSON.stringify(productosCarrito))
     cargarCarrito()
